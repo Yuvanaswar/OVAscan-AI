@@ -24,3 +24,6 @@ static/gradcam_output/*
 
 # Temporary scratch files
 scratch/
+
+# Clinical real-time dataset (kept private locally)
+real time data/
