@@ -1,3 +1,13 @@
+---
+title: OVAscan AI Clinical PACS Workstation
+emoji: 🩺
+colorFrom: blue
+colorTo: indigo
+sdk: docker
+app_port: 7860
+pinned: false
+---
+
 # OvaScan AI: Clinical Ultrasound PACS Workstation (3-Class Diagnostic System)
 
 ## 1. Project Purpose & Summary
