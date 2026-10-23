@@ -8,21 +8,22 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 WORKDIR /app
 
-# Upgrade pip and packaging tools first to support modern wheel metadata
-RUN pip install --no-cache-dir --upgrade pip setuptools wheel
+# Install lightweight CPU-optimized PyTorch first for fast container builds
+RUN pip install --no-cache-dir torch torchvision --index-url https://download.pytorch.org/whl/cpu
 
-# Install dependencies using CPU-only PyTorch index from requirements.txt
+# Copy requirements and install remaining packages
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy application files (respecting .dockerignore)
+# Copy all application files
 COPY . .
 
-# Create writable output directories
+# Create writable output directories for web uploads and generated CAM heatmaps
 RUN mkdir -p uploads static/gradcam_output && chmod -R 777 uploads static/gradcam_output
 
-ENV PORT=5050
-EXPOSE 5050
+# Expose Hugging Face Space default port
+ENV PORT=7860
+EXPOSE 7860
 
-# Start Flask web application
+# Start the Flask web application
 CMD ["python", "app.py"]

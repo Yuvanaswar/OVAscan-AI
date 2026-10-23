@@ -1,9 +1,0 @@
-services:
-  - type: web
-    name: ovascan-ai
-    runtime: docker
-    plan: free
-    region: oregon
-    envVars:
-      - key: PORT
-        value: 5050
