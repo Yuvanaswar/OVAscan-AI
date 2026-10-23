@@ -1,0 +1,4670 @@
+{
+  "DF_Case_007.png": {
+    "is_valid_input": true,
+    "prediction": "Dominant Follicle",
+    "predicted_class_index": 2,
+    "confidence": 98.31,
+    "confidence_level": "High",
+    "status": "dominant_follicle",
+    "status_color": "#d97706",
+    "probabilities": {
+      "Normal Ovary": 0.35,
+      "PCOS": 1.34,
+      "Dominant Follicle": 98.31
+    },
+    "clinical_summary": "Dominant Follicle (DF) detected. Indicates physiological pre-ovulatory / Graafian follicle development (>10mm) in normal ovulatory cycle.",
+    "explanations": {
+      "tri_panel": {
+        "key": "tri_panel",
+        "label": "Tri-Panel View",
+        "filename": "tri_panel_df_case_007_DF_Case_007.png",
+        "url": "/static/gradcam_output/tri_panel_df_case_007_DF_Case_007.png"
+      },
+      "standard": {
+        "key": "standard",
+        "label": "Thermal Overlay",
+        "filename": "standard_df_case_007_DF_Case_007.png",
+        "url": "/static/gradcam_output/standard_df_case_007_DF_Case_007.png"
+      },
+      "pure_heatmap": {
+        "key": "pure_heatmap",
+        "label": "Pure Heatmap",
+        "filename": "pure_heatmap_df_case_007_DF_Case_007.png",
+        "url": "/static/gradcam_output/pure_heatmap_df_case_007_DF_Case_007.png"
+      },
+      "roi_focus": {
+        "key": "roi_focus",
+        "label": "Follicle Mapping (Contours & BBoxes)",
+        "filename": "roi_focus_df_case_007_DF_Case_007.png",
+        "url": "/static/gradcam_output/roi_focus_df_case_007_DF_Case_007.png"
+      },
+      "edge_guided": {
+        "key": "edge_guided",
+        "label": "Edge Guided",
+        "filename": "edge_guided_df_case_007_DF_Case_007.png",
+        "url": "/static/gradcam_output/edge_guided_df_case_007_DF_Case_007.png"
+      },
+      "radiology_hotspot": {
+        "key": "radiology_hotspot",
+        "label": "AI & Follicle Concordance",
+        "filename": "radiology_hotspot_df_case_007_DF_Case_007.png",
+        "url": "/static/gradcam_output/radiology_hotspot_df_case_007_DF_Case_007.png"
+      }
+    },
+    "attention_metrics": {
+      "peak_x": 290,
+      "peak_y": 212,
+      "region_description": "Ovarian Parenchyma Focus",
+      "follicle_pattern": "Physiological Dominant Follicle Present (Normal Ovulatory Phase)",
+      "pattern_code": "dominant_ovulatory",
+      "afc": 6,
+      "rotterdam_afc_met": false,
+      "subcapsular_count": 2,
+      "subcapsular_pct": 28.6,
+      "mean_diameter_mm": 3.6,
+      "diameter_range_mm": "2.1 \u2013 8.4 mm",
+      "has_dominant_follicle": true,
+      "dominant_count": 1,
+      "antral_count": 6,
+      "stromal_follicle_ratio": 152.55,
+      "ai_concordance_pct": 28.6,
+      "salience_coverage_pct": 11.5,
+      "peak_salience_index": 1.0,
+      "stromal_activation_ratio": 0.53,
+      "focal_clusters": 6,
+      "margin_from_threshold": "+48.3%",
+      "certainty_level": "High Certainty",
+      "follicle_inventory": [
+        {
+          "id": 1,
+          "bbox": [
+            233,
+            100,
+            53,
+            38
+          ],
+          "center": [
+            259,
+            116
+          ],
+          "area_px": 704,
+          "diameter_mm": 8.4,
+          "major_mm": 15.6,
+          "minor_mm": 6.7,
+          "circularity": 0.32,
+          "mean_echogenicity": 29.6,
+          "is_subcapsular": true,
+          "is_dominant": true,
+          "category": "Dominant Follicle (>=10mm)",
+          "ai_confirmed": true,
+          "cam_activation": 0.475
+        },
+        {
+          "id": 2,
+          "bbox": [
+            351,
+            27,
+            28,
+            7
+          ],
+          "center": [
+            363,
+            29
+          ],
+          "area_px": 132,
+          "diameter_mm": 3.6,
+          "major_mm": 7.6,
+          "minor_mm": 1.7,
+          "circularity": 0.43,
+          "mean_echogenicity": 49.3,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.0
+        },
+        {
+          "id": 3,
+          "bbox": [
+            403,
+            27,
+            31,
+            8
+          ],
+          "center": [
+            417,
+            30
+          ],
+          "area_px": 107,
+          "diameter_mm": 3.3,
+          "major_mm": 8.6,
+          "minor_mm": 1.6,
+          "circularity": 0.29,
+          "mean_echogenicity": 58.6,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.0
+        },
+        {
+          "id": 4,
+          "bbox": [
+            342,
+            36,
+            27,
+            6
+          ],
+          "center": [
+            354,
+            38
+          ],
+          "area_px": 92,
+          "diameter_mm": 3.0,
+          "major_mm": 7.3,
+          "minor_mm": 1.4,
+          "circularity": 0.34,
+          "mean_echogenicity": 46.7,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.0
+        },
+        {
+          "id": 5,
+          "bbox": [
+            482,
+            60,
+            7,
+            14
+          ],
+          "center": [
+            484,
+            65
+          ],
+          "area_px": 57,
+          "diameter_mm": 2.4,
+          "major_mm": 3.6,
+          "minor_mm": 1.7,
+          "circularity": 0.63,
+          "mean_echogenicity": 60.4,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.142
+        },
+        {
+          "id": 6,
+          "bbox": [
+            319,
+            31,
+            20,
+            8
+          ],
+          "center": [
+            328,
+            34
+          ],
+          "area_px": 54,
+          "diameter_mm": 2.3,
+          "major_mm": 5.6,
+          "minor_mm": 1.2,
+          "circularity": 0.3,
+          "mean_echogenicity": 44.1,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.0
+        },
+        {
+          "id": 7,
+          "bbox": [
+            406,
+            78,
+            9,
+            8
+          ],
+          "center": [
+            409,
+            81
+          ],
+          "area_px": 43,
+          "diameter_mm": 2.1,
+          "major_mm": 2.2,
+          "minor_mm": 2.0,
+          "circularity": 0.77,
+          "mean_echogenicity": 34.9,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": true,
+          "cam_activation": 0.552
+        }
+      ],
+      "disclaimer": "Quantitative ultrasound follicle detection & LayerCAM explainability. Academic research screening tool."
+    },
+    "confidence_bars": 3,
+    "confidence_color": "#d97706",
+    "model_name": "ConvNeXt-Tiny V6 (Primary Champion)"
+  },
+  "DF_Case_008.png": {
+    "is_valid_input": true,
+    "prediction": "Dominant Follicle",
+    "predicted_class_index": 2,
+    "confidence": 98.75,
+    "confidence_level": "High",
+    "status": "dominant_follicle",
+    "status_color": "#d97706",
+    "probabilities": {
+      "Normal Ovary": 0.38,
+      "PCOS": 0.87,
+      "Dominant Follicle": 98.75
+    },
+    "clinical_summary": "Dominant Follicle (DF) detected. Indicates physiological pre-ovulatory / Graafian follicle development (>10mm) in normal ovulatory cycle.",
+    "explanations": {
+      "tri_panel": {
+        "key": "tri_panel",
+        "label": "Tri-Panel View",
+        "filename": "tri_panel_df_case_008_DF_Case_008.png",
+        "url": "/static/gradcam_output/tri_panel_df_case_008_DF_Case_008.png"
+      },
+      "standard": {
+        "key": "standard",
+        "label": "Thermal Overlay",
+        "filename": "standard_df_case_008_DF_Case_008.png",
+        "url": "/static/gradcam_output/standard_df_case_008_DF_Case_008.png"
+      },
+      "pure_heatmap": {
+        "key": "pure_heatmap",
+        "label": "Pure Heatmap",
+        "filename": "pure_heatmap_df_case_008_DF_Case_008.png",
+        "url": "/static/gradcam_output/pure_heatmap_df_case_008_DF_Case_008.png"
+      },
+      "roi_focus": {
+        "key": "roi_focus",
+        "label": "Follicle Mapping (Contours & BBoxes)",
+        "filename": "roi_focus_df_case_008_DF_Case_008.png",
+        "url": "/static/gradcam_output/roi_focus_df_case_008_DF_Case_008.png"
+      },
+      "edge_guided": {
+        "key": "edge_guided",
+        "label": "Edge Guided",
+        "filename": "edge_guided_df_case_008_DF_Case_008.png",
+        "url": "/static/gradcam_output/edge_guided_df_case_008_DF_Case_008.png"
+      },
+      "radiology_hotspot": {
+        "key": "radiology_hotspot",
+        "label": "AI & Follicle Concordance",
+        "filename": "radiology_hotspot_df_case_008_DF_Case_008.png",
+        "url": "/static/gradcam_output/radiology_hotspot_df_case_008_DF_Case_008.png"
+      }
+    },
+    "attention_metrics": {
+      "peak_x": 303,
+      "peak_y": 208,
+      "region_description": "Ovarian Parenchyma Focus",
+      "follicle_pattern": "Normal Physiological Follicular Reserve (Non-PCOS)",
+      "pattern_code": "normal_reserve",
+      "afc": 12,
+      "rotterdam_afc_met": false,
+      "subcapsular_count": 5,
+      "subcapsular_pct": 41.7,
+      "mean_diameter_mm": 3.2,
+      "diameter_range_mm": "2.1 \u2013 5.4 mm",
+      "has_dominant_follicle": false,
+      "dominant_count": 0,
+      "antral_count": 12,
+      "stromal_follicle_ratio": 131.61,
+      "ai_concordance_pct": 58.3,
+      "salience_coverage_pct": 13.8,
+      "peak_salience_index": 1.0,
+      "stromal_activation_ratio": 0.54,
+      "focal_clusters": 12,
+      "margin_from_threshold": "+48.8%",
+      "certainty_level": "High Certainty",
+      "follicle_inventory": [
+        {
+          "id": 1,
+          "bbox": [
+            228,
+            172,
+            23,
+            26
+          ],
+          "center": [
+            240,
+            183
+          ],
+          "area_px": 292,
+          "diameter_mm": 5.4,
+          "major_mm": 7.1,
+          "minor_mm": 5.9,
+          "circularity": 0.49,
+          "mean_echogenicity": 48.4,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": true,
+          "cam_activation": 0.295
+        },
+        {
+          "id": 2,
+          "bbox": [
+            312,
+            74,
+            48,
+            10
+          ],
+          "center": [
+            336,
+            78
+          ],
+          "area_px": 273,
+          "diameter_mm": 5.2,
+          "major_mm": 13.2,
+          "minor_mm": 2.3,
+          "circularity": 0.31,
+          "mean_echogenicity": 44.1,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": true,
+          "cam_activation": 0.399
+        },
+        {
+          "id": 3,
+          "bbox": [
+            527,
+            138,
+            18,
+            13
+          ],
+          "center": [
+            535,
+            143
+          ],
+          "area_px": 160,
+          "diameter_mm": 4.0,
+          "major_mm": 4.8,
+          "minor_mm": 3.4,
+          "circularity": 0.83,
+          "mean_echogenicity": 55.2,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.077
+        },
+        {
+          "id": 4,
+          "bbox": [
+            249,
+            119,
+            15,
+            18
+          ],
+          "center": [
+            255,
+            126
+          ],
+          "area_px": 149,
+          "diameter_mm": 3.9,
+          "major_mm": 4.7,
+          "minor_mm": 3.5,
+          "circularity": 0.73,
+          "mean_echogenicity": 38.9,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": true,
+          "cam_activation": 0.594
+        },
+        {
+          "id": 5,
+          "bbox": [
+            255,
+            27,
+            14,
+            16
+          ],
+          "center": [
+            260,
+            34
+          ],
+          "area_px": 103,
+          "diameter_mm": 3.2,
+          "major_mm": 4.6,
+          "minor_mm": 3.0,
+          "circularity": 0.49,
+          "mean_echogenicity": 59.3,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.0
+        },
+        {
+          "id": 6,
+          "bbox": [
+            478,
+            62,
+            18,
+            9
+          ],
+          "center": [
+            485,
+            65
+          ],
+          "area_px": 82,
+          "diameter_mm": 2.9,
+          "major_mm": 4.9,
+          "minor_mm": 2.0,
+          "circularity": 0.53,
+          "mean_echogenicity": 35.7,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": true,
+          "cam_activation": 0.279
+        },
+        {
+          "id": 7,
+          "bbox": [
+            343,
+            67,
+            25,
+            6
+          ],
+          "center": [
+            354,
+            69
+          ],
+          "area_px": 81,
+          "diameter_mm": 2.8,
+          "major_mm": 6.7,
+          "minor_mm": 1.3,
+          "circularity": 0.34,
+          "mean_echogenicity": 57.2,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": true,
+          "cam_activation": 0.427
+        },
+        {
+          "id": 8,
+          "bbox": [
+            335,
+            39,
+            13,
+            7
+          ],
+          "center": [
+            340,
+            41
+          ],
+          "area_px": 50,
+          "diameter_mm": 2.2,
+          "major_mm": 3.4,
+          "minor_mm": 1.7,
+          "circularity": 0.6,
+          "mean_echogenicity": 64.1,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.0
+        },
+        {
+          "id": 9,
+          "bbox": [
+            343,
+            33,
+            13,
+            7
+          ],
+          "center": [
+            349,
+            35
+          ],
+          "area_px": 48,
+          "diameter_mm": 2.2,
+          "major_mm": 3.4,
+          "minor_mm": 1.7,
+          "circularity": 0.57,
+          "mean_echogenicity": 56.0,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.0
+        },
+        {
+          "id": 10,
+          "bbox": [
+            357,
+            90,
+            15,
+            5
+          ],
+          "center": [
+            363,
+            91
+          ],
+          "area_px": 46,
+          "diameter_mm": 2.1,
+          "major_mm": 3.9,
+          "minor_mm": 1.1,
+          "circularity": 0.51,
+          "mean_echogenicity": 53.5,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": true,
+          "cam_activation": 0.484
+        },
+        {
+          "id": 11,
+          "bbox": [
+            333,
+            88,
+            17,
+            5
+          ],
+          "center": [
+            340,
+            89
+          ],
+          "area_px": 43,
+          "diameter_mm": 2.1,
+          "major_mm": 4.5,
+          "minor_mm": 1.1,
+          "circularity": 0.36,
+          "mean_echogenicity": 40.1,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": true,
+          "cam_activation": 0.419
+        },
+        {
+          "id": 12,
+          "bbox": [
+            379,
+            44,
+            12,
+            6
+          ],
+          "center": [
+            384,
+            46
+          ],
+          "area_px": 43,
+          "diameter_mm": 2.1,
+          "major_mm": 3.1,
+          "minor_mm": 1.4,
+          "circularity": 0.67,
+          "mean_echogenicity": 61.1,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.107
+        }
+      ],
+      "disclaimer": "Quantitative ultrasound follicle detection & LayerCAM explainability. Academic research screening tool."
+    },
+    "confidence_bars": 3,
+    "confidence_color": "#d97706",
+    "model_name": "ConvNeXt-Tiny V6 (Primary Champion)"
+  },
+  "DF_Case_009.png": {
+    "is_valid_input": true,
+    "prediction": "Dominant Follicle",
+    "predicted_class_index": 2,
+    "confidence": 98.92,
+    "confidence_level": "High",
+    "status": "dominant_follicle",
+    "status_color": "#d97706",
+    "probabilities": {
+      "Normal Ovary": 0.26,
+      "PCOS": 0.82,
+      "Dominant Follicle": 98.92
+    },
+    "clinical_summary": "Dominant Follicle (DF) detected. Indicates physiological pre-ovulatory / Graafian follicle development (>10mm) in normal ovulatory cycle.",
+    "explanations": {
+      "tri_panel": {
+        "key": "tri_panel",
+        "label": "Tri-Panel View",
+        "filename": "tri_panel_df_case_009_DF_Case_009.png",
+        "url": "/static/gradcam_output/tri_panel_df_case_009_DF_Case_009.png"
+      },
+      "standard": {
+        "key": "standard",
+        "label": "Thermal Overlay",
+        "filename": "standard_df_case_009_DF_Case_009.png",
+        "url": "/static/gradcam_output/standard_df_case_009_DF_Case_009.png"
+      },
+      "pure_heatmap": {
+        "key": "pure_heatmap",
+        "label": "Pure Heatmap",
+        "filename": "pure_heatmap_df_case_009_DF_Case_009.png",
+        "url": "/static/gradcam_output/pure_heatmap_df_case_009_DF_Case_009.png"
+      },
+      "roi_focus": {
+        "key": "roi_focus",
+        "label": "Follicle Mapping (Contours & BBoxes)",
+        "filename": "roi_focus_df_case_009_DF_Case_009.png",
+        "url": "/static/gradcam_output/roi_focus_df_case_009_DF_Case_009.png"
+      },
+      "edge_guided": {
+        "key": "edge_guided",
+        "label": "Edge Guided",
+        "filename": "edge_guided_df_case_009_DF_Case_009.png",
+        "url": "/static/gradcam_output/edge_guided_df_case_009_DF_Case_009.png"
+      },
+      "radiology_hotspot": {
+        "key": "radiology_hotspot",
+        "label": "AI & Follicle Concordance",
+        "filename": "radiology_hotspot_df_case_009_DF_Case_009.png",
+        "url": "/static/gradcam_output/radiology_hotspot_df_case_009_DF_Case_009.png"
+      }
+    },
+    "attention_metrics": {
+      "peak_x": 381,
+      "peak_y": 266,
+      "region_description": "Ovarian Parenchyma Focus",
+      "follicle_pattern": "Normal Physiological Follicular Reserve (Non-PCOS)",
+      "pattern_code": "normal_reserve",
+      "afc": 12,
+      "rotterdam_afc_met": false,
+      "subcapsular_count": 7,
+      "subcapsular_pct": 58.3,
+      "mean_diameter_mm": 3.6,
+      "diameter_range_mm": "2.3 \u2013 6.7 mm",
+      "has_dominant_follicle": false,
+      "dominant_count": 0,
+      "antral_count": 12,
+      "stromal_follicle_ratio": 105.49,
+      "ai_concordance_pct": 91.7,
+      "salience_coverage_pct": 15.7,
+      "peak_salience_index": 1.0,
+      "stromal_activation_ratio": 0.58,
+      "focal_clusters": 12,
+      "margin_from_threshold": "+48.9%",
+      "certainty_level": "High Certainty",
+      "follicle_inventory": [
+        {
+          "id": 1,
+          "bbox": [
+            276,
+            149,
+            25,
+            26
+          ],
+          "center": [
+            287,
+            160
+          ],
+          "area_px": 453,
+          "diameter_mm": 6.7,
+          "major_mm": 7.1,
+          "minor_mm": 6.5,
+          "circularity": 0.72,
+          "mean_echogenicity": 55.8,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Maturing Antral (6-9mm)",
+          "ai_confirmed": true,
+          "cam_activation": 0.351
+        },
+        {
+          "id": 2,
+          "bbox": [
+            311,
+            162,
+            32,
+            24
+          ],
+          "center": [
+            325,
+            173
+          ],
+          "area_px": 374,
+          "diameter_mm": 6.1,
+          "major_mm": 9.1,
+          "minor_mm": 5.6,
+          "circularity": 0.56,
+          "mean_echogenicity": 55.8,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Maturing Antral (6-9mm)",
+          "ai_confirmed": true,
+          "cam_activation": 0.612
+        },
+        {
+          "id": 3,
+          "bbox": [
+            238,
+            133,
+            19,
+            22
+          ],
+          "center": [
+            247,
+            143
+          ],
+          "area_px": 204,
+          "diameter_mm": 4.5,
+          "major_mm": 7.1,
+          "minor_mm": 3.3,
+          "circularity": 0.63,
+          "mean_echogenicity": 49.8,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.203
+        },
+        {
+          "id": 4,
+          "bbox": [
+            468,
+            125,
+            25,
+            8
+          ],
+          "center": [
+            480,
+            128
+          ],
+          "area_px": 135,
+          "diameter_mm": 3.7,
+          "major_mm": 6.7,
+          "minor_mm": 2.0,
+          "circularity": 0.54,
+          "mean_echogenicity": 55.3,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": true,
+          "cam_activation": 0.304
+        },
+        {
+          "id": 5,
+          "bbox": [
+            307,
+            107,
+            20,
+            11
+          ],
+          "center": [
+            315,
+            111
+          ],
+          "area_px": 108,
+          "diameter_mm": 3.3,
+          "major_mm": 5.2,
+          "minor_mm": 2.8,
+          "circularity": 0.46,
+          "mean_echogenicity": 57.1,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": true,
+          "cam_activation": 0.446
+        },
+        {
+          "id": 6,
+          "bbox": [
+            406,
+            123,
+            26,
+            7
+          ],
+          "center": [
+            416,
+            126
+          ],
+          "area_px": 95,
+          "diameter_mm": 3.1,
+          "major_mm": 7.0,
+          "minor_mm": 1.7,
+          "circularity": 0.34,
+          "mean_echogenicity": 57.2,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": true,
+          "cam_activation": 0.49
+        },
+        {
+          "id": 7,
+          "bbox": [
+            297,
+            264,
+            13,
+            11
+          ],
+          "center": [
+            302,
+            268
+          ],
+          "area_px": 92,
+          "diameter_mm": 3.0,
+          "major_mm": 3.4,
+          "minor_mm": 2.8,
+          "circularity": 0.78,
+          "mean_echogenicity": 50.8,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": true,
+          "cam_activation": 0.595
+        },
+        {
+          "id": 8,
+          "bbox": [
+            375,
+            299,
+            12,
+            12
+          ],
+          "center": [
+            381,
+            303
+          ],
+          "area_px": 76,
+          "diameter_mm": 2.8,
+          "major_mm": 3.3,
+          "minor_mm": 2.8,
+          "circularity": 0.73,
+          "mean_echogenicity": 39.0,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": true,
+          "cam_activation": 0.751
+        },
+        {
+          "id": 9,
+          "bbox": [
+            329,
+            196,
+            14,
+            11
+          ],
+          "center": [
+            335,
+            200
+          ],
+          "area_px": 79,
+          "diameter_mm": 2.8,
+          "major_mm": 3.8,
+          "minor_mm": 2.5,
+          "circularity": 0.57,
+          "mean_echogenicity": 60.1,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": true,
+          "cam_activation": 0.56
+        },
+        {
+          "id": 10,
+          "bbox": [
+            364,
+            76,
+            22,
+            7
+          ],
+          "center": [
+            375,
+            78
+          ],
+          "area_px": 79,
+          "diameter_mm": 2.8,
+          "major_mm": 5.9,
+          "minor_mm": 1.7,
+          "circularity": 0.39,
+          "mean_echogenicity": 46.5,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": true,
+          "cam_activation": 0.289
+        },
+        {
+          "id": 11,
+          "bbox": [
+            379,
+            133,
+            19,
+            6
+          ],
+          "center": [
+            387,
+            135
+          ],
+          "area_px": 66,
+          "diameter_mm": 2.6,
+          "major_mm": 5.0,
+          "minor_mm": 1.4,
+          "circularity": 0.46,
+          "mean_echogenicity": 62.9,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": true,
+          "cam_activation": 0.695
+        },
+        {
+          "id": 12,
+          "bbox": [
+            469,
+            114,
+            14,
+            8
+          ],
+          "center": [
+            474,
+            116
+          ],
+          "area_px": 55,
+          "diameter_mm": 2.3,
+          "major_mm": 3.8,
+          "minor_mm": 1.7,
+          "circularity": 0.55,
+          "mean_echogenicity": 57.7,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": true,
+          "cam_activation": 0.281
+        }
+      ],
+      "disclaimer": "Quantitative ultrasound follicle detection & LayerCAM explainability. Academic research screening tool."
+    },
+    "confidence_bars": 3,
+    "confidence_color": "#d97706",
+    "model_name": "ConvNeXt-Tiny V6 (Primary Champion)"
+  },
+  "DF_Case_024.png": {
+    "is_valid_input": true,
+    "prediction": "Dominant Follicle",
+    "predicted_class_index": 2,
+    "confidence": 98.69,
+    "confidence_level": "High",
+    "status": "dominant_follicle",
+    "status_color": "#d97706",
+    "probabilities": {
+      "Normal Ovary": 0.43,
+      "PCOS": 0.88,
+      "Dominant Follicle": 98.69
+    },
+    "clinical_summary": "Dominant Follicle (DF) detected. Indicates physiological pre-ovulatory / Graafian follicle development (>10mm) in normal ovulatory cycle.",
+    "explanations": {
+      "tri_panel": {
+        "key": "tri_panel",
+        "label": "Tri-Panel View",
+        "filename": "tri_panel_df_case_024_DF_Case_024.png",
+        "url": "/static/gradcam_output/tri_panel_df_case_024_DF_Case_024.png"
+      },
+      "standard": {
+        "key": "standard",
+        "label": "Thermal Overlay",
+        "filename": "standard_df_case_024_DF_Case_024.png",
+        "url": "/static/gradcam_output/standard_df_case_024_DF_Case_024.png"
+      },
+      "pure_heatmap": {
+        "key": "pure_heatmap",
+        "label": "Pure Heatmap",
+        "filename": "pure_heatmap_df_case_024_DF_Case_024.png",
+        "url": "/static/gradcam_output/pure_heatmap_df_case_024_DF_Case_024.png"
+      },
+      "roi_focus": {
+        "key": "roi_focus",
+        "label": "Follicle Mapping (Contours & BBoxes)",
+        "filename": "roi_focus_df_case_024_DF_Case_024.png",
+        "url": "/static/gradcam_output/roi_focus_df_case_024_DF_Case_024.png"
+      },
+      "edge_guided": {
+        "key": "edge_guided",
+        "label": "Edge Guided",
+        "filename": "edge_guided_df_case_024_DF_Case_024.png",
+        "url": "/static/gradcam_output/edge_guided_df_case_024_DF_Case_024.png"
+      },
+      "radiology_hotspot": {
+        "key": "radiology_hotspot",
+        "label": "AI & Follicle Concordance",
+        "filename": "radiology_hotspot_df_case_024_DF_Case_024.png",
+        "url": "/static/gradcam_output/radiology_hotspot_df_case_024_DF_Case_024.png"
+      }
+    },
+    "attention_metrics": {
+      "peak_x": 301,
+      "peak_y": 203,
+      "region_description": "Ovarian Parenchyma Focus",
+      "follicle_pattern": "Normal Physiological Follicular Reserve (Non-PCOS)",
+      "pattern_code": "normal_reserve",
+      "afc": 7,
+      "rotterdam_afc_met": false,
+      "subcapsular_count": 5,
+      "subcapsular_pct": 71.4,
+      "mean_diameter_mm": 3.3,
+      "diameter_range_mm": "2.0 \u2013 5.0 mm",
+      "has_dominant_follicle": false,
+      "dominant_count": 0,
+      "antral_count": 7,
+      "stromal_follicle_ratio": 219.74,
+      "ai_concordance_pct": 14.3,
+      "salience_coverage_pct": 11.4,
+      "peak_salience_index": 1.0,
+      "stromal_activation_ratio": 0.52,
+      "focal_clusters": 7,
+      "margin_from_threshold": "+48.7%",
+      "certainty_level": "High Certainty",
+      "follicle_inventory": [
+        {
+          "id": 1,
+          "bbox": [
+            394,
+            33,
+            29,
+            18
+          ],
+          "center": [
+            407,
+            41
+          ],
+          "area_px": 246,
+          "diameter_mm": 5.0,
+          "major_mm": 8.1,
+          "minor_mm": 4.2,
+          "circularity": 0.45,
+          "mean_echogenicity": 50.9,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.007
+        },
+        {
+          "id": 2,
+          "bbox": [
+            210,
+            261,
+            23,
+            18
+          ],
+          "center": [
+            220,
+            269
+          ],
+          "area_px": 197,
+          "diameter_mm": 4.4,
+          "major_mm": 7.1,
+          "minor_mm": 3.0,
+          "circularity": 0.63,
+          "mean_echogenicity": 53.7,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.111
+        },
+        {
+          "id": 3,
+          "bbox": [
+            410,
+            31,
+            30,
+            14
+          ],
+          "center": [
+            426,
+            35
+          ],
+          "area_px": 181,
+          "diameter_mm": 4.3,
+          "major_mm": 8.1,
+          "minor_mm": 3.6,
+          "circularity": 0.4,
+          "mean_echogenicity": 48.7,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.0
+        },
+        {
+          "id": 4,
+          "bbox": [
+            437,
+            43,
+            11,
+            12
+          ],
+          "center": [
+            441,
+            48
+          ],
+          "area_px": 72,
+          "diameter_mm": 2.7,
+          "major_mm": 3.1,
+          "minor_mm": 2.7,
+          "circularity": 0.68,
+          "mean_echogenicity": 53.3,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.048
+        },
+        {
+          "id": 5,
+          "bbox": [
+            276,
+            46,
+            14,
+            6
+          ],
+          "center": [
+            282,
+            48
+          ],
+          "area_px": 55,
+          "diameter_mm": 2.4,
+          "major_mm": 3.6,
+          "minor_mm": 1.4,
+          "circularity": 0.64,
+          "mean_echogenicity": 54.3,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.193
+        },
+        {
+          "id": 6,
+          "bbox": [
+            212,
+            211,
+            7,
+            11
+          ],
+          "center": [
+            215,
+            215
+          ],
+          "area_px": 40,
+          "diameter_mm": 2.0,
+          "major_mm": 2.9,
+          "minor_mm": 1.6,
+          "circularity": 0.67,
+          "mean_echogenicity": 33.2,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": true,
+          "cam_activation": 0.302
+        },
+        {
+          "id": 7,
+          "bbox": [
+            457,
+            150,
+            7,
+            10
+          ],
+          "center": [
+            459,
+            153
+          ],
+          "area_px": 42,
+          "diameter_mm": 2.0,
+          "major_mm": 2.5,
+          "minor_mm": 1.7,
+          "circularity": 0.82,
+          "mean_echogenicity": 11.4,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.008
+        }
+      ],
+      "disclaimer": "Quantitative ultrasound follicle detection & LayerCAM explainability. Academic research screening tool."
+    },
+    "confidence_bars": 3,
+    "confidence_color": "#d97706",
+    "model_name": "ConvNeXt-Tiny V6 (Primary Champion)"
+  },
+  "Normal_Case_002.png": {
+    "is_valid_input": true,
+    "prediction": "Normal Ovary",
+    "predicted_class_index": 0,
+    "confidence": 75.47,
+    "confidence_level": "High",
+    "status": "normal",
+    "status_color": "#059669",
+    "probabilities": {
+      "Normal Ovary": 75.47,
+      "PCOS": 2.65,
+      "Dominant Follicle": 21.89
+    },
+    "clinical_summary": "Normal ovarian parenchymal architecture. Physiological follicular reserve without polyfollicular crowding or dominant follicle expansion.",
+    "explanations": {
+      "tri_panel": {
+        "key": "tri_panel",
+        "label": "Tri-Panel View",
+        "filename": "tri_panel_normal_case_002_Normal_Case_002.png",
+        "url": "/static/gradcam_output/tri_panel_normal_case_002_Normal_Case_002.png"
+      },
+      "standard": {
+        "key": "standard",
+        "label": "Thermal Overlay",
+        "filename": "standard_normal_case_002_Normal_Case_002.png",
+        "url": "/static/gradcam_output/standard_normal_case_002_Normal_Case_002.png"
+      },
+      "pure_heatmap": {
+        "key": "pure_heatmap",
+        "label": "Pure Heatmap",
+        "filename": "pure_heatmap_normal_case_002_Normal_Case_002.png",
+        "url": "/static/gradcam_output/pure_heatmap_normal_case_002_Normal_Case_002.png"
+      },
+      "roi_focus": {
+        "key": "roi_focus",
+        "label": "Follicle Mapping (Contours & BBoxes)",
+        "filename": "roi_focus_normal_case_002_Normal_Case_002.png",
+        "url": "/static/gradcam_output/roi_focus_normal_case_002_Normal_Case_002.png"
+      },
+      "edge_guided": {
+        "key": "edge_guided",
+        "label": "Edge Guided",
+        "filename": "edge_guided_normal_case_002_Normal_Case_002.png",
+        "url": "/static/gradcam_output/edge_guided_normal_case_002_Normal_Case_002.png"
+      },
+      "radiology_hotspot": {
+        "key": "radiology_hotspot",
+        "label": "AI & Follicle Concordance",
+        "filename": "radiology_hotspot_normal_case_002_Normal_Case_002.png",
+        "url": "/static/gradcam_output/radiology_hotspot_normal_case_002_Normal_Case_002.png"
+      }
+    },
+    "attention_metrics": {
+      "peak_x": 474,
+      "peak_y": 251,
+      "region_description": "Ovarian Parenchyma Focus",
+      "follicle_pattern": "Normal Physiological Follicular Reserve (Non-PCOS)",
+      "pattern_code": "normal_reserve",
+      "afc": 5,
+      "rotterdam_afc_met": false,
+      "subcapsular_count": 4,
+      "subcapsular_pct": 80.0,
+      "mean_diameter_mm": 5.2,
+      "diameter_range_mm": "2.9 \u2013 7.6 mm",
+      "has_dominant_follicle": false,
+      "dominant_count": 0,
+      "antral_count": 5,
+      "stromal_follicle_ratio": 165.93,
+      "ai_concordance_pct": 20.0,
+      "salience_coverage_pct": 17.7,
+      "peak_salience_index": 1.0,
+      "stromal_activation_ratio": 0.58,
+      "focal_clusters": 5,
+      "margin_from_threshold": "+25.5%",
+      "certainty_level": "High Certainty",
+      "follicle_inventory": [
+        {
+          "id": 1,
+          "bbox": [
+            704,
+            101,
+            33,
+            45
+          ],
+          "center": [
+            722,
+            120
+          ],
+          "area_px": 583,
+          "diameter_mm": 7.6,
+          "major_mm": 13.9,
+          "minor_mm": 6.4,
+          "circularity": 0.36,
+          "mean_echogenicity": 36.3,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Maturing Antral (6-9mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.206
+        },
+        {
+          "id": 2,
+          "bbox": [
+            724,
+            173,
+            40,
+            27
+          ],
+          "center": [
+            743,
+            184
+          ],
+          "area_px": 340,
+          "diameter_mm": 5.8,
+          "major_mm": 11.8,
+          "minor_mm": 3.4,
+          "circularity": 0.4,
+          "mean_echogenicity": 23.4,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.197
+        },
+        {
+          "id": 3,
+          "bbox": [
+            335,
+            37,
+            46,
+            10
+          ],
+          "center": [
+            359,
+            40
+          ],
+          "area_px": 293,
+          "diameter_mm": 5.4,
+          "major_mm": 12.6,
+          "minor_mm": 2.5,
+          "circularity": 0.37,
+          "mean_echogenicity": 18.3,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.0
+        },
+        {
+          "id": 4,
+          "bbox": [
+            266,
+            245,
+            23,
+            26
+          ],
+          "center": [
+            275,
+            256
+          ],
+          "area_px": 187,
+          "diameter_mm": 4.3,
+          "major_mm": 8.9,
+          "minor_mm": 2.8,
+          "circularity": 0.43,
+          "mean_echogenicity": 34.1,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": true,
+          "cam_activation": 0.465
+        },
+        {
+          "id": 5,
+          "bbox": [
+            774,
+            170,
+            20,
+            20
+          ],
+          "center": [
+            784,
+            179
+          ],
+          "area_px": 84,
+          "diameter_mm": 2.9,
+          "major_mm": 7.3,
+          "minor_mm": 1.6,
+          "circularity": 0.3,
+          "mean_echogenicity": 33.1,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.119
+        }
+      ],
+      "disclaimer": "Quantitative ultrasound follicle detection & LayerCAM explainability. Academic research screening tool."
+    },
+    "confidence_bars": 3,
+    "confidence_color": "#059669",
+    "model_name": "ConvNeXt-Tiny V6 (Primary Champion)"
+  },
+  "Normal_Case_006.png": {
+    "is_valid_input": true,
+    "prediction": "Dominant Follicle",
+    "predicted_class_index": 2,
+    "confidence": 54.98,
+    "confidence_level": "Moderate",
+    "status": "dominant_follicle",
+    "status_color": "#d97706",
+    "probabilities": {
+      "Normal Ovary": 38.58,
+      "PCOS": 6.45,
+      "Dominant Follicle": 54.98
+    },
+    "clinical_summary": "Dominant Follicle (DF) detected. Indicates physiological pre-ovulatory / Graafian follicle development (>10mm) in normal ovulatory cycle.",
+    "explanations": {
+      "tri_panel": {
+        "key": "tri_panel",
+        "label": "Tri-Panel View",
+        "filename": "tri_panel_normal_case_006_Normal_Case_006.png",
+        "url": "/static/gradcam_output/tri_panel_normal_case_006_Normal_Case_006.png"
+      },
+      "standard": {
+        "key": "standard",
+        "label": "Thermal Overlay",
+        "filename": "standard_normal_case_006_Normal_Case_006.png",
+        "url": "/static/gradcam_output/standard_normal_case_006_Normal_Case_006.png"
+      },
+      "pure_heatmap": {
+        "key": "pure_heatmap",
+        "label": "Pure Heatmap",
+        "filename": "pure_heatmap_normal_case_006_Normal_Case_006.png",
+        "url": "/static/gradcam_output/pure_heatmap_normal_case_006_Normal_Case_006.png"
+      },
+      "roi_focus": {
+        "key": "roi_focus",
+        "label": "Follicle Mapping (Contours & BBoxes)",
+        "filename": "roi_focus_normal_case_006_Normal_Case_006.png",
+        "url": "/static/gradcam_output/roi_focus_normal_case_006_Normal_Case_006.png"
+      },
+      "edge_guided": {
+        "key": "edge_guided",
+        "label": "Edge Guided",
+        "filename": "edge_guided_normal_case_006_Normal_Case_006.png",
+        "url": "/static/gradcam_output/edge_guided_normal_case_006_Normal_Case_006.png"
+      },
+      "radiology_hotspot": {
+        "key": "radiology_hotspot",
+        "label": "AI & Follicle Concordance",
+        "filename": "radiology_hotspot_normal_case_006_Normal_Case_006.png",
+        "url": "/static/gradcam_output/radiology_hotspot_normal_case_006_Normal_Case_006.png"
+      }
+    },
+    "attention_metrics": {
+      "peak_x": 68,
+      "peak_y": 188,
+      "region_description": "Ovarian Parenchyma Focus",
+      "follicle_pattern": "Physiological Dominant Follicle Present (Normal Ovulatory Phase)",
+      "pattern_code": "dominant_ovulatory",
+      "afc": 19,
+      "rotterdam_afc_met": false,
+      "subcapsular_count": 11,
+      "subcapsular_pct": 55.0,
+      "mean_diameter_mm": 3.7,
+      "diameter_range_mm": "2.0 \u2013 8.5 mm",
+      "has_dominant_follicle": true,
+      "dominant_count": 1,
+      "antral_count": 19,
+      "stromal_follicle_ratio": 94.34,
+      "ai_concordance_pct": 0.0,
+      "salience_coverage_pct": 2.7,
+      "peak_salience_index": 1.0,
+      "stromal_activation_ratio": 0.55,
+      "focal_clusters": 19,
+      "margin_from_threshold": "+5.0%",
+      "certainty_level": "Moderate Certainty",
+      "follicle_inventory": [
+        {
+          "id": 1,
+          "bbox": [
+            436,
+            30,
+            63,
+            28
+          ],
+          "center": [
+            467,
+            44
+          ],
+          "area_px": 724,
+          "diameter_mm": 8.5,
+          "major_mm": 18.4,
+          "minor_mm": 5.4,
+          "circularity": 0.39,
+          "mean_echogenicity": 20.7,
+          "is_subcapsular": true,
+          "is_dominant": true,
+          "category": "Dominant Follicle (>=10mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.004
+        },
+        {
+          "id": 2,
+          "bbox": [
+            425,
+            139,
+            17,
+            33
+          ],
+          "center": [
+            433,
+            154
+          ],
+          "area_px": 360,
+          "diameter_mm": 6.0,
+          "major_mm": 8.9,
+          "minor_mm": 4.4,
+          "circularity": 0.55,
+          "mean_echogenicity": 23.3,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Maturing Antral (6-9mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.044
+        },
+        {
+          "id": 3,
+          "bbox": [
+            613,
+            117,
+            42,
+            20
+          ],
+          "center": [
+            631,
+            127
+          ],
+          "area_px": 359,
+          "diameter_mm": 6.0,
+          "major_mm": 11.5,
+          "minor_mm": 5.2,
+          "circularity": 0.36,
+          "mean_echogenicity": 25.5,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Maturing Antral (6-9mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.019
+        },
+        {
+          "id": 4,
+          "bbox": [
+            361,
+            140,
+            15,
+            45
+          ],
+          "center": [
+            368,
+            161
+          ],
+          "area_px": 346,
+          "diameter_mm": 5.9,
+          "major_mm": 12.3,
+          "minor_mm": 3.9,
+          "circularity": 0.31,
+          "mean_echogenicity": 22.5,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.059
+        },
+        {
+          "id": 5,
+          "bbox": [
+            163,
+            189,
+            24,
+            29
+          ],
+          "center": [
+            172,
+            201
+          ],
+          "area_px": 241,
+          "diameter_mm": 4.9,
+          "major_mm": 9.9,
+          "minor_mm": 3.4,
+          "circularity": 0.42,
+          "mean_echogenicity": 7.1,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.0
+        },
+        {
+          "id": 6,
+          "bbox": [
+            338,
+            391,
+            31,
+            13
+          ],
+          "center": [
+            351,
+            395
+          ],
+          "area_px": 200,
+          "diameter_mm": 4.5,
+          "major_mm": 8.4,
+          "minor_mm": 3.4,
+          "circularity": 0.42,
+          "mean_echogenicity": 39.3,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.042
+        },
+        {
+          "id": 7,
+          "bbox": [
+            379,
+            112,
+            23,
+            10
+          ],
+          "center": [
+            388,
+            116
+          ],
+          "area_px": 143,
+          "diameter_mm": 3.8,
+          "major_mm": 6.2,
+          "minor_mm": 2.5,
+          "circularity": 0.57,
+          "mean_echogenicity": 28.8,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.023
+        },
+        {
+          "id": 8,
+          "bbox": [
+            145,
+            174,
+            16,
+            16
+          ],
+          "center": [
+            153,
+            180
+          ],
+          "area_px": 138,
+          "diameter_mm": 3.7,
+          "major_mm": 5.1,
+          "minor_mm": 3.0,
+          "circularity": 0.73,
+          "mean_echogenicity": 11.8,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.051
+        },
+        {
+          "id": 9,
+          "bbox": [
+            200,
+            95,
+            14,
+            18
+          ],
+          "center": [
+            206,
+            101
+          ],
+          "area_px": 103,
+          "diameter_mm": 3.2,
+          "major_mm": 4.4,
+          "minor_mm": 3.9,
+          "circularity": 0.46,
+          "mean_echogenicity": 15.1,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.04
+        },
+        {
+          "id": 10,
+          "bbox": [
+            432,
+            31,
+            22,
+            12
+          ],
+          "center": [
+            442,
+            37
+          ],
+          "area_px": 102,
+          "diameter_mm": 3.2,
+          "major_mm": 6.4,
+          "minor_mm": 2.2,
+          "circularity": 0.35,
+          "mean_echogenicity": 35.0,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.0
+        },
+        {
+          "id": 11,
+          "bbox": [
+            436,
+            357,
+            17,
+            10
+          ],
+          "center": [
+            445,
+            360
+          ],
+          "area_px": 83,
+          "diameter_mm": 2.9,
+          "major_mm": 4.5,
+          "minor_mm": 2.5,
+          "circularity": 0.56,
+          "mean_echogenicity": 35.7,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.033
+        },
+        {
+          "id": 12,
+          "bbox": [
+            133,
+            116,
+            11,
+            13
+          ],
+          "center": [
+            137,
+            121
+          ],
+          "area_px": 76,
+          "diameter_mm": 2.8,
+          "major_mm": 3.4,
+          "minor_mm": 2.8,
+          "circularity": 0.68,
+          "mean_echogenicity": 10.4,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.0
+        },
+        {
+          "id": 13,
+          "bbox": [
+            406,
+            148,
+            17,
+            9
+          ],
+          "center": [
+            412,
+            151
+          ],
+          "area_px": 75,
+          "diameter_mm": 2.7,
+          "major_mm": 4.5,
+          "minor_mm": 2.2,
+          "circularity": 0.46,
+          "mean_echogenicity": 37.7,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.077
+        },
+        {
+          "id": 14,
+          "bbox": [
+            379,
+            208,
+            12,
+            9
+          ],
+          "center": [
+            384,
+            211
+          ],
+          "area_px": 63,
+          "diameter_mm": 2.5,
+          "major_mm": 3.1,
+          "minor_mm": 2.2,
+          "circularity": 0.71,
+          "mean_echogenicity": 13.3,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.011
+        },
+        {
+          "id": 15,
+          "bbox": [
+            742,
+            156,
+            14,
+            10
+          ],
+          "center": [
+            748,
+            160
+          ],
+          "area_px": 64,
+          "diameter_mm": 2.5,
+          "major_mm": 4.1,
+          "minor_mm": 1.8,
+          "circularity": 0.57,
+          "mean_echogenicity": 40.3,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.023
+        },
+        {
+          "id": 16,
+          "bbox": [
+            603,
+            263,
+            11,
+            9
+          ],
+          "center": [
+            607,
+            266
+          ],
+          "area_px": 57,
+          "diameter_mm": 2.4,
+          "major_mm": 2.8,
+          "minor_mm": 2.2,
+          "circularity": 0.79,
+          "mean_echogenicity": 27.8,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.025
+        },
+        {
+          "id": 17,
+          "bbox": [
+            342,
+            111,
+            12,
+            8
+          ],
+          "center": [
+            347,
+            114
+          ],
+          "area_px": 56,
+          "diameter_mm": 2.4,
+          "major_mm": 3.1,
+          "minor_mm": 2.0,
+          "circularity": 0.72,
+          "mean_echogenicity": 34.4,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.041
+        },
+        {
+          "id": 18,
+          "bbox": [
+            352,
+            281,
+            14,
+            6
+          ],
+          "center": [
+            359,
+            283
+          ],
+          "area_px": 49,
+          "diameter_mm": 2.2,
+          "major_mm": 3.6,
+          "minor_mm": 1.4,
+          "circularity": 0.57,
+          "mean_echogenicity": 40.4,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.048
+        },
+        {
+          "id": 19,
+          "bbox": [
+            348,
+            132,
+            9,
+            10
+          ],
+          "center": [
+            352,
+            136
+          ],
+          "area_px": 48,
+          "diameter_mm": 2.2,
+          "major_mm": 3.0,
+          "minor_mm": 1.8,
+          "circularity": 0.76,
+          "mean_echogenicity": 36.6,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.074
+        },
+        {
+          "id": 20,
+          "bbox": [
+            258,
+            197,
+            10,
+            10
+          ],
+          "center": [
+            262,
+            200
+          ],
+          "area_px": 40,
+          "diameter_mm": 2.0,
+          "major_mm": 2.5,
+          "minor_mm": 2.5,
+          "circularity": 0.4,
+          "mean_echogenicity": 26.8,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.103
+        }
+      ],
+      "disclaimer": "Quantitative ultrasound follicle detection & LayerCAM explainability. Academic research screening tool."
+    },
+    "confidence_bars": 2,
+    "confidence_color": "#d97706",
+    "model_name": "ConvNeXt-Tiny V6 (Primary Champion)"
+  },
+  "Normal_Case_016.png": {
+    "is_valid_input": true,
+    "prediction": "Normal Ovary",
+    "predicted_class_index": 0,
+    "confidence": 87.2,
+    "confidence_level": "High",
+    "status": "normal",
+    "status_color": "#059669",
+    "probabilities": {
+      "Normal Ovary": 87.2,
+      "PCOS": 2.19,
+      "Dominant Follicle": 10.61
+    },
+    "clinical_summary": "Normal ovarian parenchymal architecture. Physiological follicular reserve without polyfollicular crowding or dominant follicle expansion.",
+    "explanations": {
+      "tri_panel": {
+        "key": "tri_panel",
+        "label": "Tri-Panel View",
+        "filename": "tri_panel_normal_case_016_Normal_Case_016.png",
+        "url": "/static/gradcam_output/tri_panel_normal_case_016_Normal_Case_016.png"
+      },
+      "standard": {
+        "key": "standard",
+        "label": "Thermal Overlay",
+        "filename": "standard_normal_case_016_Normal_Case_016.png",
+        "url": "/static/gradcam_output/standard_normal_case_016_Normal_Case_016.png"
+      },
+      "pure_heatmap": {
+        "key": "pure_heatmap",
+        "label": "Pure Heatmap",
+        "filename": "pure_heatmap_normal_case_016_Normal_Case_016.png",
+        "url": "/static/gradcam_output/pure_heatmap_normal_case_016_Normal_Case_016.png"
+      },
+      "roi_focus": {
+        "key": "roi_focus",
+        "label": "Follicle Mapping (Contours & BBoxes)",
+        "filename": "roi_focus_normal_case_016_Normal_Case_016.png",
+        "url": "/static/gradcam_output/roi_focus_normal_case_016_Normal_Case_016.png"
+      },
+      "edge_guided": {
+        "key": "edge_guided",
+        "label": "Edge Guided",
+        "filename": "edge_guided_normal_case_016_Normal_Case_016.png",
+        "url": "/static/gradcam_output/edge_guided_normal_case_016_Normal_Case_016.png"
+      },
+      "radiology_hotspot": {
+        "key": "radiology_hotspot",
+        "label": "AI & Follicle Concordance",
+        "filename": "radiology_hotspot_normal_case_016_Normal_Case_016.png",
+        "url": "/static/gradcam_output/radiology_hotspot_normal_case_016_Normal_Case_016.png"
+      }
+    },
+    "attention_metrics": {
+      "peak_x": 408,
+      "peak_y": 164,
+      "region_description": "Ovarian Parenchyma Focus",
+      "follicle_pattern": "Normal Physiological Follicular Reserve (Non-PCOS)",
+      "pattern_code": "normal_reserve",
+      "afc": 4,
+      "rotterdam_afc_met": false,
+      "subcapsular_count": 3,
+      "subcapsular_pct": 75.0,
+      "mean_diameter_mm": 3.3,
+      "diameter_range_mm": "2.2 \u2013 4.6 mm",
+      "has_dominant_follicle": false,
+      "dominant_count": 0,
+      "antral_count": 4,
+      "stromal_follicle_ratio": 600.81,
+      "ai_concordance_pct": 25.0,
+      "salience_coverage_pct": 20.8,
+      "peak_salience_index": 1.0,
+      "stromal_activation_ratio": 0.66,
+      "focal_clusters": 4,
+      "margin_from_threshold": "+37.2%",
+      "certainty_level": "High Certainty",
+      "follicle_inventory": [
+        {
+          "id": 1,
+          "bbox": [
+            79,
+            153,
+            22,
+            34
+          ],
+          "center": [
+            90,
+            169
+          ],
+          "area_px": 215,
+          "diameter_mm": 4.6,
+          "major_mm": 10.7,
+          "minor_mm": 2.4,
+          "circularity": 0.36,
+          "mean_echogenicity": 30.1,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.081
+        },
+        {
+          "id": 2,
+          "bbox": [
+            119,
+            214,
+            21,
+            23
+          ],
+          "center": [
+            129,
+            224
+          ],
+          "area_px": 116,
+          "diameter_mm": 3.4,
+          "major_mm": 8.1,
+          "minor_mm": 1.4,
+          "circularity": 0.36,
+          "mean_echogenicity": 29.8,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.082
+        },
+        {
+          "id": 3,
+          "bbox": [
+            643,
+            115,
+            10,
+            17
+          ],
+          "center": [
+            647,
+            122
+          ],
+          "area_px": 82,
+          "diameter_mm": 2.9,
+          "major_mm": 4.9,
+          "minor_mm": 2.3,
+          "circularity": 0.56,
+          "mean_echogenicity": 39.4,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.158
+        },
+        {
+          "id": 4,
+          "bbox": [
+            403,
+            137,
+            12,
+            7
+          ],
+          "center": [
+            408,
+            139
+          ],
+          "area_px": 49,
+          "diameter_mm": 2.2,
+          "major_mm": 3.1,
+          "minor_mm": 1.7,
+          "circularity": 0.7,
+          "mean_echogenicity": 34.3,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": true,
+          "cam_activation": 0.769
+        }
+      ],
+      "disclaimer": "Quantitative ultrasound follicle detection & LayerCAM explainability. Academic research screening tool."
+    },
+    "confidence_bars": 3,
+    "confidence_color": "#059669",
+    "model_name": "ConvNeXt-Tiny V6 (Primary Champion)"
+  },
+  "Normal_Case_017.png": {
+    "is_valid_input": true,
+    "prediction": "Normal Ovary",
+    "predicted_class_index": 0,
+    "confidence": 79.23,
+    "confidence_level": "High",
+    "status": "normal",
+    "status_color": "#059669",
+    "probabilities": {
+      "Normal Ovary": 79.23,
+      "PCOS": 1.96,
+      "Dominant Follicle": 18.81
+    },
+    "clinical_summary": "Normal ovarian parenchymal architecture. Physiological follicular reserve without polyfollicular crowding or dominant follicle expansion.",
+    "explanations": {
+      "tri_panel": {
+        "key": "tri_panel",
+        "label": "Tri-Panel View",
+        "filename": "tri_panel_normal_case_017_Normal_Case_017.png",
+        "url": "/static/gradcam_output/tri_panel_normal_case_017_Normal_Case_017.png"
+      },
+      "standard": {
+        "key": "standard",
+        "label": "Thermal Overlay",
+        "filename": "standard_normal_case_017_Normal_Case_017.png",
+        "url": "/static/gradcam_output/standard_normal_case_017_Normal_Case_017.png"
+      },
+      "pure_heatmap": {
+        "key": "pure_heatmap",
+        "label": "Pure Heatmap",
+        "filename": "pure_heatmap_normal_case_017_Normal_Case_017.png",
+        "url": "/static/gradcam_output/pure_heatmap_normal_case_017_Normal_Case_017.png"
+      },
+      "roi_focus": {
+        "key": "roi_focus",
+        "label": "Follicle Mapping (Contours & BBoxes)",
+        "filename": "roi_focus_normal_case_017_Normal_Case_017.png",
+        "url": "/static/gradcam_output/roi_focus_normal_case_017_Normal_Case_017.png"
+      },
+      "edge_guided": {
+        "key": "edge_guided",
+        "label": "Edge Guided",
+        "filename": "edge_guided_normal_case_017_Normal_Case_017.png",
+        "url": "/static/gradcam_output/edge_guided_normal_case_017_Normal_Case_017.png"
+      },
+      "radiology_hotspot": {
+        "key": "radiology_hotspot",
+        "label": "AI & Follicle Concordance",
+        "filename": "radiology_hotspot_normal_case_017_Normal_Case_017.png",
+        "url": "/static/gradcam_output/radiology_hotspot_normal_case_017_Normal_Case_017.png"
+      }
+    },
+    "attention_metrics": {
+      "peak_x": 318,
+      "peak_y": 178,
+      "region_description": "Ovarian Parenchyma Focus",
+      "follicle_pattern": "Normal Physiological Follicular Reserve (Non-PCOS)",
+      "pattern_code": "normal_reserve",
+      "afc": 5,
+      "rotterdam_afc_met": false,
+      "subcapsular_count": 4,
+      "subcapsular_pct": 80.0,
+      "mean_diameter_mm": 4.6,
+      "diameter_range_mm": "2.4 \u2013 6.4 mm",
+      "has_dominant_follicle": false,
+      "dominant_count": 0,
+      "antral_count": 5,
+      "stromal_follicle_ratio": 143.82,
+      "ai_concordance_pct": 40.0,
+      "salience_coverage_pct": 20.0,
+      "peak_salience_index": 1.0,
+      "stromal_activation_ratio": 0.6,
+      "focal_clusters": 5,
+      "margin_from_threshold": "+29.2%",
+      "certainty_level": "High Certainty",
+      "follicle_inventory": [
+        {
+          "id": 1,
+          "bbox": [
+            461,
+            149,
+            24,
+            39
+          ],
+          "center": [
+            473,
+            164
+          ],
+          "area_px": 405,
+          "diameter_mm": 6.4,
+          "major_mm": 11.8,
+          "minor_mm": 4.9,
+          "circularity": 0.39,
+          "mean_echogenicity": 26.3,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Maturing Antral (6-9mm)",
+          "ai_confirmed": true,
+          "cam_activation": 0.306
+        },
+        {
+          "id": 2,
+          "bbox": [
+            122,
+            152,
+            27,
+            27
+          ],
+          "center": [
+            133,
+            164
+          ],
+          "area_px": 332,
+          "diameter_mm": 5.8,
+          "major_mm": 8.3,
+          "minor_mm": 4.9,
+          "circularity": 0.52,
+          "mean_echogenicity": 21.9,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.177
+        },
+        {
+          "id": 3,
+          "bbox": [
+            94,
+            148,
+            16,
+            25
+          ],
+          "center": [
+            101,
+            160
+          ],
+          "area_px": 206,
+          "diameter_mm": 4.5,
+          "major_mm": 6.1,
+          "minor_mm": 4.3,
+          "circularity": 0.6,
+          "mean_echogenicity": 26.4,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.193
+        },
+        {
+          "id": 4,
+          "bbox": [
+            46,
+            241,
+            21,
+            25
+          ],
+          "center": [
+            55,
+            252
+          ],
+          "area_px": 151,
+          "diameter_mm": 3.9,
+          "major_mm": 8.5,
+          "minor_mm": 2.1,
+          "circularity": 0.39,
+          "mean_echogenicity": 34.0,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.123
+        },
+        {
+          "id": 5,
+          "bbox": [
+            460,
+            118,
+            13,
+            13
+          ],
+          "center": [
+            466,
+            124
+          ],
+          "area_px": 58,
+          "diameter_mm": 2.4,
+          "major_mm": 4.6,
+          "minor_mm": 1.7,
+          "circularity": 0.46,
+          "mean_echogenicity": 35.5,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": true,
+          "cam_activation": 0.387
+        }
+      ],
+      "disclaimer": "Quantitative ultrasound follicle detection & LayerCAM explainability. Academic research screening tool."
+    },
+    "confidence_bars": 3,
+    "confidence_color": "#059669",
+    "model_name": "ConvNeXt-Tiny V6 (Primary Champion)"
+  },
+  "PCOS_Case_004.png": {
+    "is_valid_input": true,
+    "prediction": "PCOS",
+    "predicted_class_index": 1,
+    "confidence": 99.91,
+    "confidence_level": "High",
+    "status": "pcos",
+    "status_color": "#e11d48",
+    "probabilities": {
+      "Normal Ovary": 0.03,
+      "PCOS": 99.91,
+      "Dominant Follicle": 0.06
+    },
+    "clinical_summary": "High probability of Polycystic Ovary Syndrome (PCOS). Ultrasound shows characteristic polyfollicular patterns with stromal thickening.",
+    "explanations": {
+      "tri_panel": {
+        "key": "tri_panel",
+        "label": "Tri-Panel View",
+        "filename": "tri_panel_pcos_case_004_PCOS_Case_004.png",
+        "url": "/static/gradcam_output/tri_panel_pcos_case_004_PCOS_Case_004.png"
+      },
+      "standard": {
+        "key": "standard",
+        "label": "Thermal Overlay",
+        "filename": "standard_pcos_case_004_PCOS_Case_004.png",
+        "url": "/static/gradcam_output/standard_pcos_case_004_PCOS_Case_004.png"
+      },
+      "pure_heatmap": {
+        "key": "pure_heatmap",
+        "label": "Pure Heatmap",
+        "filename": "pure_heatmap_pcos_case_004_PCOS_Case_004.png",
+        "url": "/static/gradcam_output/pure_heatmap_pcos_case_004_PCOS_Case_004.png"
+      },
+      "roi_focus": {
+        "key": "roi_focus",
+        "label": "Follicle Mapping (Contours & BBoxes)",
+        "filename": "roi_focus_pcos_case_004_PCOS_Case_004.png",
+        "url": "/static/gradcam_output/roi_focus_pcos_case_004_PCOS_Case_004.png"
+      },
+      "edge_guided": {
+        "key": "edge_guided",
+        "label": "Edge Guided",
+        "filename": "edge_guided_pcos_case_004_PCOS_Case_004.png",
+        "url": "/static/gradcam_output/edge_guided_pcos_case_004_PCOS_Case_004.png"
+      },
+      "radiology_hotspot": {
+        "key": "radiology_hotspot",
+        "label": "AI & Follicle Concordance",
+        "filename": "radiology_hotspot_pcos_case_004_PCOS_Case_004.png",
+        "url": "/static/gradcam_output/radiology_hotspot_pcos_case_004_PCOS_Case_004.png"
+      }
+    },
+    "attention_metrics": {
+      "peak_x": 210,
+      "peak_y": 139,
+      "region_description": "Ovarian Parenchyma Focus",
+      "follicle_pattern": "Peripheral Subcapsular Ring ('String-of-Pearls', Rotterdam PCOS Sign)",
+      "pattern_code": "peripheral_ring",
+      "afc": 13,
+      "rotterdam_afc_met": true,
+      "subcapsular_count": 9,
+      "subcapsular_pct": 64.3,
+      "mean_diameter_mm": 4.6,
+      "diameter_range_mm": "2.2 \u2013 11.2 mm",
+      "has_dominant_follicle": false,
+      "dominant_count": 0,
+      "antral_count": 13,
+      "stromal_follicle_ratio": 42.12,
+      "ai_concordance_pct": 42.9,
+      "salience_coverage_pct": 13.0,
+      "peak_salience_index": 1.0,
+      "stromal_activation_ratio": 0.5,
+      "focal_clusters": 13,
+      "margin_from_threshold": "+49.9%",
+      "certainty_level": "High Certainty",
+      "follicle_inventory": [
+        {
+          "id": 1,
+          "bbox": [
+            268,
+            150,
+            65,
+            49
+          ],
+          "center": [
+            297,
+            175
+          ],
+          "area_px": 1257,
+          "diameter_mm": 11.2,
+          "major_mm": 20.4,
+          "minor_mm": 7.5,
+          "circularity": 0.38,
+          "mean_echogenicity": 23.4,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Maturing Antral (6-9mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.086
+        },
+        {
+          "id": 2,
+          "bbox": [
+            306,
+            108,
+            40,
+            42
+          ],
+          "center": [
+            327,
+            128
+          ],
+          "area_px": 892,
+          "diameter_mm": 9.4,
+          "major_mm": 14.8,
+          "minor_mm": 8.2,
+          "circularity": 0.3,
+          "mean_echogenicity": 24.0,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Maturing Antral (6-9mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.104
+        },
+        {
+          "id": 3,
+          "bbox": [
+            252,
+            68,
+            42,
+            29
+          ],
+          "center": [
+            270,
+            80
+          ],
+          "area_px": 453,
+          "diameter_mm": 6.7,
+          "major_mm": 11.8,
+          "minor_mm": 4.9,
+          "circularity": 0.33,
+          "mean_echogenicity": 47.5,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Maturing Antral (6-9mm)",
+          "ai_confirmed": true,
+          "cam_activation": 0.324
+        },
+        {
+          "id": 4,
+          "bbox": [
+            300,
+            74,
+            25,
+            28
+          ],
+          "center": [
+            311,
+            86
+          ],
+          "area_px": 422,
+          "diameter_mm": 6.5,
+          "major_mm": 7.1,
+          "minor_mm": 6.9,
+          "circularity": 0.72,
+          "mean_echogenicity": 22.9,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Maturing Antral (6-9mm)",
+          "ai_confirmed": true,
+          "cam_activation": 0.252
+        },
+        {
+          "id": 5,
+          "bbox": [
+            285,
+            269,
+            25,
+            19
+          ],
+          "center": [
+            296,
+            276
+          ],
+          "area_px": 178,
+          "diameter_mm": 4.2,
+          "major_mm": 8.0,
+          "minor_mm": 2.6,
+          "circularity": 0.49,
+          "mean_echogenicity": 43.7,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.06
+        },
+        {
+          "id": 6,
+          "bbox": [
+            280,
+            125,
+            16,
+            17
+          ],
+          "center": [
+            286,
+            132
+          ],
+          "area_px": 150,
+          "diameter_mm": 3.9,
+          "major_mm": 4.6,
+          "minor_mm": 3.6,
+          "circularity": 0.77,
+          "mean_echogenicity": 47.5,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": true,
+          "cam_activation": 0.381
+        },
+        {
+          "id": 7,
+          "bbox": [
+            357,
+            77,
+            15,
+            17
+          ],
+          "center": [
+            364,
+            83
+          ],
+          "area_px": 133,
+          "diameter_mm": 3.7,
+          "major_mm": 4.2,
+          "minor_mm": 4.2,
+          "circularity": 0.57,
+          "mean_echogenicity": 47.0,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.042
+        },
+        {
+          "id": 8,
+          "bbox": [
+            209,
+            251,
+            27,
+            14
+          ],
+          "center": [
+            221,
+            257
+          ],
+          "area_px": 123,
+          "diameter_mm": 3.5,
+          "major_mm": 8.0,
+          "minor_mm": 1.9,
+          "circularity": 0.35,
+          "mean_echogenicity": 53.3,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": true,
+          "cam_activation": 0.361
+        },
+        {
+          "id": 9,
+          "bbox": [
+            264,
+            204,
+            14,
+            12
+          ],
+          "center": [
+            270,
+            208
+          ],
+          "area_px": 105,
+          "diameter_mm": 3.2,
+          "major_mm": 3.6,
+          "minor_mm": 3.1,
+          "circularity": 0.77,
+          "mean_echogenicity": 33.4,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.2
+        },
+        {
+          "id": 10,
+          "bbox": [
+            326,
+            86,
+            15,
+            13
+          ],
+          "center": [
+            333,
+            91
+          ],
+          "area_px": 104,
+          "diameter_mm": 3.2,
+          "major_mm": 4.6,
+          "minor_mm": 2.6,
+          "circularity": 0.68,
+          "mean_echogenicity": 47.8,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": true,
+          "cam_activation": 0.354
+        },
+        {
+          "id": 11,
+          "bbox": [
+            130,
+            88,
+            11,
+            13
+          ],
+          "center": [
+            134,
+            94
+          ],
+          "area_px": 67,
+          "diameter_mm": 2.6,
+          "major_mm": 4.0,
+          "minor_mm": 2.0,
+          "circularity": 0.6,
+          "mean_echogenicity": 56.8,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.199
+        },
+        {
+          "id": 12,
+          "bbox": [
+            292,
+            325,
+            10,
+            9
+          ],
+          "center": [
+            296,
+            328
+          ],
+          "area_px": 56,
+          "diameter_mm": 2.4,
+          "major_mm": 2.5,
+          "minor_mm": 2.2,
+          "circularity": 0.79,
+          "mean_echogenicity": 55.0,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.11
+        },
+        {
+          "id": 13,
+          "bbox": [
+            262,
+            319,
+            10,
+            10
+          ],
+          "center": [
+            266,
+            323
+          ],
+          "area_px": 55,
+          "diameter_mm": 2.3,
+          "major_mm": 2.7,
+          "minor_mm": 2.2,
+          "circularity": 0.7,
+          "mean_echogenicity": 33.3,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.125
+        },
+        {
+          "id": 14,
+          "bbox": [
+            261,
+            140,
+            8,
+            11
+          ],
+          "center": [
+            265,
+            143
+          ],
+          "area_px": 49,
+          "diameter_mm": 2.2,
+          "major_mm": 2.8,
+          "minor_mm": 2.0,
+          "circularity": 0.7,
+          "mean_echogenicity": 43.8,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": true,
+          "cam_activation": 0.433
+        }
+      ],
+      "disclaimer": "Quantitative ultrasound follicle detection & LayerCAM explainability. Academic research screening tool."
+    },
+    "confidence_bars": 3,
+    "confidence_color": "#e11d48",
+    "model_name": "ConvNeXt-Tiny V6 (Primary Champion)"
+  },
+  "PCOS_Case_011.png": {
+    "is_valid_input": true,
+    "prediction": "PCOS",
+    "predicted_class_index": 1,
+    "confidence": 99.83,
+    "confidence_level": "High",
+    "status": "pcos",
+    "status_color": "#e11d48",
+    "probabilities": {
+      "Normal Ovary": 0.03,
+      "PCOS": 99.83,
+      "Dominant Follicle": 0.14
+    },
+    "clinical_summary": "High probability of Polycystic Ovary Syndrome (PCOS). Ultrasound shows characteristic polyfollicular patterns with stromal thickening.",
+    "explanations": {
+      "tri_panel": {
+        "key": "tri_panel",
+        "label": "Tri-Panel View",
+        "filename": "tri_panel_pcos_case_011_PCOS_Case_011.png",
+        "url": "/static/gradcam_output/tri_panel_pcos_case_011_PCOS_Case_011.png"
+      },
+      "standard": {
+        "key": "standard",
+        "label": "Thermal Overlay",
+        "filename": "standard_pcos_case_011_PCOS_Case_011.png",
+        "url": "/static/gradcam_output/standard_pcos_case_011_PCOS_Case_011.png"
+      },
+      "pure_heatmap": {
+        "key": "pure_heatmap",
+        "label": "Pure Heatmap",
+        "filename": "pure_heatmap_pcos_case_011_PCOS_Case_011.png",
+        "url": "/static/gradcam_output/pure_heatmap_pcos_case_011_PCOS_Case_011.png"
+      },
+      "roi_focus": {
+        "key": "roi_focus",
+        "label": "Follicle Mapping (Contours & BBoxes)",
+        "filename": "roi_focus_pcos_case_011_PCOS_Case_011.png",
+        "url": "/static/gradcam_output/roi_focus_pcos_case_011_PCOS_Case_011.png"
+      },
+      "edge_guided": {
+        "key": "edge_guided",
+        "label": "Edge Guided",
+        "filename": "edge_guided_pcos_case_011_PCOS_Case_011.png",
+        "url": "/static/gradcam_output/edge_guided_pcos_case_011_PCOS_Case_011.png"
+      },
+      "radiology_hotspot": {
+        "key": "radiology_hotspot",
+        "label": "AI & Follicle Concordance",
+        "filename": "radiology_hotspot_pcos_case_011_PCOS_Case_011.png",
+        "url": "/static/gradcam_output/radiology_hotspot_pcos_case_011_PCOS_Case_011.png"
+      }
+    },
+    "attention_metrics": {
+      "peak_x": 96,
+      "peak_y": 107,
+      "region_description": "Ovarian Parenchyma Focus",
+      "follicle_pattern": "Normal Physiological Follicular Reserve (Non-PCOS)",
+      "pattern_code": "normal_reserve",
+      "afc": 11,
+      "rotterdam_afc_met": false,
+      "subcapsular_count": 8,
+      "subcapsular_pct": 72.7,
+      "mean_diameter_mm": 5.2,
+      "diameter_range_mm": "2.8 \u2013 8.5 mm",
+      "has_dominant_follicle": false,
+      "dominant_count": 0,
+      "antral_count": 11,
+      "stromal_follicle_ratio": 45.47,
+      "ai_concordance_pct": 18.2,
+      "salience_coverage_pct": 7.1,
+      "peak_salience_index": 1.0,
+      "stromal_activation_ratio": 0.58,
+      "focal_clusters": 11,
+      "margin_from_threshold": "+49.8%",
+      "certainty_level": "High Certainty",
+      "follicle_inventory": [
+        {
+          "id": 1,
+          "bbox": [
+            136,
+            162,
+            20,
+            63
+          ],
+          "center": [
+            145,
+            192
+          ],
+          "area_px": 725,
+          "diameter_mm": 8.5,
+          "major_mm": 17.4,
+          "minor_mm": 5.3,
+          "circularity": 0.34,
+          "mean_echogenicity": 25.5,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Maturing Antral (6-9mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.077
+        },
+        {
+          "id": 2,
+          "bbox": [
+            63,
+            158,
+            41,
+            47
+          ],
+          "center": [
+            86,
+            181
+          ],
+          "area_px": 717,
+          "diameter_mm": 8.5,
+          "major_mm": 15.9,
+          "minor_mm": 6.3,
+          "circularity": 0.45,
+          "mean_echogenicity": 33.9,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Maturing Antral (6-9mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.218
+        },
+        {
+          "id": 3,
+          "bbox": [
+            113,
+            141,
+            37,
+            20
+          ],
+          "center": [
+            132,
+            150
+          ],
+          "area_px": 428,
+          "diameter_mm": 6.5,
+          "major_mm": 10.0,
+          "minor_mm": 5.0,
+          "circularity": 0.6,
+          "mean_echogenicity": 6.7,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Maturing Antral (6-9mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.023
+        },
+        {
+          "id": 4,
+          "bbox": [
+            259,
+            96,
+            30,
+            18
+          ],
+          "center": [
+            274,
+            103
+          ],
+          "area_px": 288,
+          "diameter_mm": 5.4,
+          "major_mm": 8.6,
+          "minor_mm": 4.4,
+          "circularity": 0.56,
+          "mean_echogenicity": 26.7,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.19
+        },
+        {
+          "id": 5,
+          "bbox": [
+            173,
+            298,
+            32,
+            18
+          ],
+          "center": [
+            191,
+            307
+          ],
+          "area_px": 254,
+          "diameter_mm": 5.0,
+          "major_mm": 8.8,
+          "minor_mm": 4.4,
+          "circularity": 0.47,
+          "mean_echogenicity": 42.1,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.186
+        },
+        {
+          "id": 6,
+          "bbox": [
+            171,
+            279,
+            19,
+            19
+          ],
+          "center": [
+            180,
+            288
+          ],
+          "area_px": 215,
+          "diameter_mm": 4.6,
+          "major_mm": 5.6,
+          "minor_mm": 4.1,
+          "circularity": 0.72,
+          "mean_echogenicity": 31.9,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.145
+        },
+        {
+          "id": 7,
+          "bbox": [
+            130,
+            111,
+            20,
+            24
+          ],
+          "center": [
+            140,
+            122
+          ],
+          "area_px": 214,
+          "diameter_mm": 4.6,
+          "major_mm": 7.8,
+          "minor_mm": 3.2,
+          "circularity": 0.57,
+          "mean_echogenicity": 14.2,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.129
+        },
+        {
+          "id": 8,
+          "bbox": [
+            119,
+            97,
+            23,
+            13
+          ],
+          "center": [
+            131,
+            102
+          ],
+          "area_px": 181,
+          "diameter_mm": 4.3,
+          "major_mm": 6.2,
+          "minor_mm": 3.3,
+          "circularity": 0.69,
+          "mean_echogenicity": 31.4,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": true,
+          "cam_activation": 0.622
+        },
+        {
+          "id": 9,
+          "bbox": [
+            48,
+            191,
+            13,
+            29
+          ],
+          "center": [
+            53,
+            204
+          ],
+          "area_px": 166,
+          "diameter_mm": 4.1,
+          "major_mm": 7.9,
+          "minor_mm": 2.5,
+          "circularity": 0.42,
+          "mean_echogenicity": 49.2,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.039
+        },
+        {
+          "id": 10,
+          "bbox": [
+            232,
+            80,
+            19,
+            10
+          ],
+          "center": [
+            240,
+            84
+          ],
+          "area_px": 111,
+          "diameter_mm": 3.3,
+          "major_mm": 5.0,
+          "minor_mm": 2.5,
+          "circularity": 0.66,
+          "mean_echogenicity": 40.0,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": true,
+          "cam_activation": 0.293
+        },
+        {
+          "id": 11,
+          "bbox": [
+            262,
+            114,
+            16,
+            9
+          ],
+          "center": [
+            269,
+            118
+          ],
+          "area_px": 81,
+          "diameter_mm": 2.8,
+          "major_mm": 4.2,
+          "minor_mm": 2.2,
+          "circularity": 0.57,
+          "mean_echogenicity": 30.7,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.17
+        }
+      ],
+      "disclaimer": "Quantitative ultrasound follicle detection & LayerCAM explainability. Academic research screening tool."
+    },
+    "confidence_bars": 3,
+    "confidence_color": "#e11d48",
+    "model_name": "ConvNeXt-Tiny V6 (Primary Champion)"
+  },
+  "PCOS_Case_023.png": {
+    "is_valid_input": true,
+    "prediction": "PCOS",
+    "predicted_class_index": 1,
+    "confidence": 99.4,
+    "confidence_level": "High",
+    "status": "pcos",
+    "status_color": "#e11d48",
+    "probabilities": {
+      "Normal Ovary": 0.14,
+      "PCOS": 99.4,
+      "Dominant Follicle": 0.46
+    },
+    "clinical_summary": "High probability of Polycystic Ovary Syndrome (PCOS). Ultrasound shows characteristic polyfollicular patterns with stromal thickening.",
+    "explanations": {
+      "tri_panel": {
+        "key": "tri_panel",
+        "label": "Tri-Panel View",
+        "filename": "tri_panel_pcos_case_023_PCOS_Case_023.png",
+        "url": "/static/gradcam_output/tri_panel_pcos_case_023_PCOS_Case_023.png"
+      },
+      "standard": {
+        "key": "standard",
+        "label": "Thermal Overlay",
+        "filename": "standard_pcos_case_023_PCOS_Case_023.png",
+        "url": "/static/gradcam_output/standard_pcos_case_023_PCOS_Case_023.png"
+      },
+      "pure_heatmap": {
+        "key": "pure_heatmap",
+        "label": "Pure Heatmap",
+        "filename": "pure_heatmap_pcos_case_023_PCOS_Case_023.png",
+        "url": "/static/gradcam_output/pure_heatmap_pcos_case_023_PCOS_Case_023.png"
+      },
+      "roi_focus": {
+        "key": "roi_focus",
+        "label": "Follicle Mapping (Contours & BBoxes)",
+        "filename": "roi_focus_pcos_case_023_PCOS_Case_023.png",
+        "url": "/static/gradcam_output/roi_focus_pcos_case_023_PCOS_Case_023.png"
+      },
+      "edge_guided": {
+        "key": "edge_guided",
+        "label": "Edge Guided",
+        "filename": "edge_guided_pcos_case_023_PCOS_Case_023.png",
+        "url": "/static/gradcam_output/edge_guided_pcos_case_023_PCOS_Case_023.png"
+      },
+      "radiology_hotspot": {
+        "key": "radiology_hotspot",
+        "label": "AI & Follicle Concordance",
+        "filename": "radiology_hotspot_pcos_case_023_PCOS_Case_023.png",
+        "url": "/static/gradcam_output/radiology_hotspot_pcos_case_023_PCOS_Case_023.png"
+      }
+    },
+    "attention_metrics": {
+      "peak_x": 178,
+      "peak_y": 108,
+      "region_description": "Ovarian Parenchyma Focus",
+      "follicle_pattern": "Peripheral Subcapsular Ring ('String-of-Pearls', Rotterdam PCOS Sign)",
+      "pattern_code": "peripheral_ring",
+      "afc": 22,
+      "rotterdam_afc_met": true,
+      "subcapsular_count": 17,
+      "subcapsular_pct": 73.9,
+      "mean_diameter_mm": 4.0,
+      "diameter_range_mm": "2.0 \u2013 10.5 mm",
+      "has_dominant_follicle": false,
+      "dominant_count": 0,
+      "antral_count": 22,
+      "stromal_follicle_ratio": 37.01,
+      "ai_concordance_pct": 13.0,
+      "salience_coverage_pct": 5.7,
+      "peak_salience_index": 1.0,
+      "stromal_activation_ratio": 0.52,
+      "focal_clusters": 22,
+      "margin_from_threshold": "+49.4%",
+      "certainty_level": "High Certainty",
+      "follicle_inventory": [
+        {
+          "id": 1,
+          "bbox": [
+            122,
+            122,
+            72,
+            25
+          ],
+          "center": [
+            159,
+            133
+          ],
+          "area_px": 1095,
+          "diameter_mm": 10.5,
+          "major_mm": 19.8,
+          "minor_mm": 6.7,
+          "circularity": 0.41,
+          "mean_echogenicity": 39.3,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Maturing Antral (6-9mm)",
+          "ai_confirmed": true,
+          "cam_activation": 0.466
+        },
+        {
+          "id": 2,
+          "bbox": [
+            158,
+            157,
+            42,
+            20
+          ],
+          "center": [
+            178,
+            166
+          ],
+          "area_px": 537,
+          "diameter_mm": 7.3,
+          "major_mm": 11.5,
+          "minor_mm": 5.2,
+          "circularity": 0.63,
+          "mean_echogenicity": 34.8,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Maturing Antral (6-9mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.242
+        },
+        {
+          "id": 3,
+          "bbox": [
+            28,
+            128,
+            34,
+            29
+          ],
+          "center": [
+            45,
+            144
+          ],
+          "area_px": 396,
+          "diameter_mm": 6.3,
+          "major_mm": 11.1,
+          "minor_mm": 5.9,
+          "circularity": 0.33,
+          "mean_echogenicity": 14.8,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Maturing Antral (6-9mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.008
+        },
+        {
+          "id": 4,
+          "bbox": [
+            209,
+            105,
+            42,
+            28
+          ],
+          "center": [
+            228,
+            120
+          ],
+          "area_px": 389,
+          "diameter_mm": 6.2,
+          "major_mm": 12.9,
+          "minor_mm": 4.1,
+          "circularity": 0.36,
+          "mean_echogenicity": 45.7,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Maturing Antral (6-9mm)",
+          "ai_confirmed": true,
+          "cam_activation": 0.543
+        },
+        {
+          "id": 5,
+          "bbox": [
+            315,
+            243,
+            40,
+            31
+          ],
+          "center": [
+            335,
+            259
+          ],
+          "area_px": 287,
+          "diameter_mm": 5.4,
+          "major_mm": 13.6,
+          "minor_mm": 2.7,
+          "circularity": 0.31,
+          "mean_echogenicity": 39.2,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.041
+        },
+        {
+          "id": 6,
+          "bbox": [
+            320,
+            179,
+            18,
+            17
+          ],
+          "center": [
+            327,
+            185
+          ],
+          "area_px": 198,
+          "diameter_mm": 4.5,
+          "major_mm": 4.8,
+          "minor_mm": 4.5,
+          "circularity": 0.76,
+          "mean_echogenicity": 35.0,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.035
+        },
+        {
+          "id": 7,
+          "bbox": [
+            289,
+            160,
+            24,
+            23
+          ],
+          "center": [
+            301,
+            172
+          ],
+          "area_px": 196,
+          "diameter_mm": 4.4,
+          "major_mm": 8.3,
+          "minor_mm": 3.3,
+          "circularity": 0.44,
+          "mean_echogenicity": 48.1,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.053
+        },
+        {
+          "id": 8,
+          "bbox": [
+            283,
+            262,
+            27,
+            17
+          ],
+          "center": [
+            298,
+            271
+          ],
+          "area_px": 170,
+          "diameter_mm": 4.1,
+          "major_mm": 8.1,
+          "minor_mm": 2.7,
+          "circularity": 0.41,
+          "mean_echogenicity": 45.6,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.029
+        },
+        {
+          "id": 9,
+          "bbox": [
+            319,
+            225,
+            23,
+            23
+          ],
+          "center": [
+            329,
+            236
+          ],
+          "area_px": 163,
+          "diameter_mm": 4.0,
+          "major_mm": 7.9,
+          "minor_mm": 2.4,
+          "circularity": 0.44,
+          "mean_echogenicity": 13.9,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.005
+        },
+        {
+          "id": 10,
+          "bbox": [
+            22,
+            225,
+            24,
+            15
+          ],
+          "center": [
+            33,
+            233
+          ],
+          "area_px": 153,
+          "diameter_mm": 3.9,
+          "major_mm": 6.3,
+          "minor_mm": 3.4,
+          "circularity": 0.48,
+          "mean_echogenicity": 42.3,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.007
+        },
+        {
+          "id": 11,
+          "bbox": [
+            23,
+            186,
+            28,
+            14
+          ],
+          "center": [
+            34,
+            193
+          ],
+          "area_px": 149,
+          "diameter_mm": 3.9,
+          "major_mm": 8.0,
+          "minor_mm": 2.3,
+          "circularity": 0.39,
+          "mean_echogenicity": 32.9,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.01
+        },
+        {
+          "id": 12,
+          "bbox": [
+            105,
+            120,
+            13,
+            17
+          ],
+          "center": [
+            111,
+            126
+          ],
+          "area_px": 129,
+          "diameter_mm": 3.6,
+          "major_mm": 4.5,
+          "minor_mm": 3.4,
+          "circularity": 0.59,
+          "mean_echogenicity": 30.1,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": true,
+          "cam_activation": 0.282
+        },
+        {
+          "id": 13,
+          "bbox": [
+            358,
+            271,
+            13,
+            15
+          ],
+          "center": [
+            364,
+            277
+          ],
+          "area_px": 105,
+          "diameter_mm": 3.2,
+          "major_mm": 4.0,
+          "minor_mm": 3.2,
+          "circularity": 0.63,
+          "mean_echogenicity": 38.7,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.014
+        },
+        {
+          "id": 14,
+          "bbox": [
+            56,
+            163,
+            12,
+            17
+          ],
+          "center": [
+            61,
+            170
+          ],
+          "area_px": 95,
+          "diameter_mm": 3.1,
+          "major_mm": 5.1,
+          "minor_mm": 2.2,
+          "circularity": 0.54,
+          "mean_echogenicity": 31.0,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.022
+        },
+        {
+          "id": 15,
+          "bbox": [
+            295,
+            140,
+            14,
+            13
+          ],
+          "center": [
+            302,
+            145
+          ],
+          "area_px": 90,
+          "diameter_mm": 3.0,
+          "major_mm": 3.9,
+          "minor_mm": 3.0,
+          "circularity": 0.61,
+          "mean_echogenicity": 36.6,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.039
+        },
+        {
+          "id": 16,
+          "bbox": [
+            65,
+            150,
+            17,
+            8
+          ],
+          "center": [
+            71,
+            153
+          ],
+          "area_px": 80,
+          "diameter_mm": 2.8,
+          "major_mm": 4.5,
+          "minor_mm": 2.0,
+          "circularity": 0.59,
+          "mean_echogenicity": 20.5,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.023
+        },
+        {
+          "id": 17,
+          "bbox": [
+            24,
+            61,
+            13,
+            9
+          ],
+          "center": [
+            30,
+            64
+          ],
+          "area_px": 70,
+          "diameter_mm": 2.7,
+          "major_mm": 3.4,
+          "minor_mm": 2.2,
+          "circularity": 0.66,
+          "mean_echogenicity": 48.3,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.013
+        },
+        {
+          "id": 18,
+          "bbox": [
+            29,
+            34,
+            10,
+            14
+          ],
+          "center": [
+            33,
+            40
+          ],
+          "area_px": 68,
+          "diameter_mm": 2.6,
+          "major_mm": 3.5,
+          "minor_mm": 2.5,
+          "circularity": 0.58,
+          "mean_echogenicity": 53.2,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.0
+        },
+        {
+          "id": 19,
+          "bbox": [
+            123,
+            152,
+            10,
+            9
+          ],
+          "center": [
+            127,
+            155
+          ],
+          "area_px": 61,
+          "diameter_mm": 2.5,
+          "major_mm": 2.5,
+          "minor_mm": 2.2,
+          "circularity": 0.89,
+          "mean_echogenicity": 53.1,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.224
+        },
+        {
+          "id": 20,
+          "bbox": [
+            294,
+            252,
+            15,
+            8
+          ],
+          "center": [
+            301,
+            255
+          ],
+          "area_px": 54,
+          "diameter_mm": 2.3,
+          "major_mm": 4.2,
+          "minor_mm": 1.5,
+          "circularity": 0.52,
+          "mean_echogenicity": 28.8,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.04
+        },
+        {
+          "id": 21,
+          "bbox": [
+            40,
+            118,
+            11,
+            9
+          ],
+          "center": [
+            44,
+            121
+          ],
+          "area_px": 50,
+          "diameter_mm": 2.2,
+          "major_mm": 3.4,
+          "minor_mm": 1.6,
+          "circularity": 0.69,
+          "mean_echogenicity": 34.3,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.023
+        },
+        {
+          "id": 22,
+          "bbox": [
+            190,
+            251,
+            11,
+            6
+          ],
+          "center": [
+            194,
+            253
+          ],
+          "area_px": 44,
+          "diameter_mm": 2.1,
+          "major_mm": 2.8,
+          "minor_mm": 1.4,
+          "circularity": 0.72,
+          "mean_echogenicity": 55.8,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.034
+        },
+        {
+          "id": 23,
+          "bbox": [
+            40,
+            254,
+            8,
+            10
+          ],
+          "center": [
+            43,
+            258
+          ],
+          "area_px": 40,
+          "diameter_mm": 2.0,
+          "major_mm": 2.9,
+          "minor_mm": 1.6,
+          "circularity": 0.71,
+          "mean_echogenicity": 25.0,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.008
+        }
+      ],
+      "disclaimer": "Quantitative ultrasound follicle detection & LayerCAM explainability. Academic research screening tool."
+    },
+    "confidence_bars": 3,
+    "confidence_color": "#e11d48",
+    "model_name": "ConvNeXt-Tiny V6 (Primary Champion)"
+  },
+  "PCOS_Case_167.png": {
+    "is_valid_input": true,
+    "prediction": "Dominant Follicle",
+    "predicted_class_index": 2,
+    "confidence": 54.37,
+    "confidence_level": "Moderate",
+    "status": "dominant_follicle",
+    "status_color": "#d97706",
+    "probabilities": {
+      "Normal Ovary": 0.45,
+      "PCOS": 45.18,
+      "Dominant Follicle": 54.37
+    },
+    "clinical_summary": "Dominant Follicle (DF) detected. Indicates physiological pre-ovulatory / Graafian follicle development (>10mm) in normal ovulatory cycle.",
+    "explanations": {
+      "tri_panel": {
+        "key": "tri_panel",
+        "label": "Tri-Panel View",
+        "filename": "tri_panel_pcos_case_167_PCOS_Case_167.png",
+        "url": "/static/gradcam_output/tri_panel_pcos_case_167_PCOS_Case_167.png"
+      },
+      "standard": {
+        "key": "standard",
+        "label": "Thermal Overlay",
+        "filename": "standard_pcos_case_167_PCOS_Case_167.png",
+        "url": "/static/gradcam_output/standard_pcos_case_167_PCOS_Case_167.png"
+      },
+      "pure_heatmap": {
+        "key": "pure_heatmap",
+        "label": "Pure Heatmap",
+        "filename": "pure_heatmap_pcos_case_167_PCOS_Case_167.png",
+        "url": "/static/gradcam_output/pure_heatmap_pcos_case_167_PCOS_Case_167.png"
+      },
+      "roi_focus": {
+        "key": "roi_focus",
+        "label": "Follicle Mapping (Contours & BBoxes)",
+        "filename": "roi_focus_pcos_case_167_PCOS_Case_167.png",
+        "url": "/static/gradcam_output/roi_focus_pcos_case_167_PCOS_Case_167.png"
+      },
+      "edge_guided": {
+        "key": "edge_guided",
+        "label": "Edge Guided",
+        "filename": "edge_guided_pcos_case_167_PCOS_Case_167.png",
+        "url": "/static/gradcam_output/edge_guided_pcos_case_167_PCOS_Case_167.png"
+      },
+      "radiology_hotspot": {
+        "key": "radiology_hotspot",
+        "label": "AI & Follicle Concordance",
+        "filename": "radiology_hotspot_pcos_case_167_PCOS_Case_167.png",
+        "url": "/static/gradcam_output/radiology_hotspot_pcos_case_167_PCOS_Case_167.png"
+      }
+    },
+    "attention_metrics": {
+      "peak_x": 371,
+      "peak_y": 266,
+      "region_description": "Ovarian Parenchyma Focus",
+      "follicle_pattern": "Physiological Dominant Follicle Present (Normal Ovulatory Phase)",
+      "pattern_code": "dominant_ovulatory",
+      "afc": 31,
+      "rotterdam_afc_met": false,
+      "subcapsular_count": 12,
+      "subcapsular_pct": 36.4,
+      "mean_diameter_mm": 3.7,
+      "diameter_range_mm": "2.0 \u2013 8.9 mm",
+      "has_dominant_follicle": true,
+      "dominant_count": 2,
+      "antral_count": 31,
+      "stromal_follicle_ratio": 58.45,
+      "ai_concordance_pct": 12.1,
+      "salience_coverage_pct": 7.9,
+      "peak_salience_index": 1.0,
+      "stromal_activation_ratio": 0.47,
+      "focal_clusters": 31,
+      "margin_from_threshold": "+4.4%",
+      "certainty_level": "Moderate Certainty",
+      "follicle_inventory": [
+        {
+          "id": 1,
+          "bbox": [
+            316,
+            173,
+            59,
+            29
+          ],
+          "center": [
+            345,
+            184
+          ],
+          "area_px": 789,
+          "diameter_mm": 8.9,
+          "major_mm": 16.8,
+          "minor_mm": 5.9,
+          "circularity": 0.36,
+          "mean_echogenicity": 11.2,
+          "is_subcapsular": false,
+          "is_dominant": true,
+          "category": "Dominant Follicle (>=10mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.12
+        },
+        {
+          "id": 2,
+          "bbox": [
+            282,
+            153,
+            52,
+            21
+          ],
+          "center": [
+            306,
+            162
+          ],
+          "area_px": 540,
+          "diameter_mm": 7.3,
+          "major_mm": 14.6,
+          "minor_mm": 4.8,
+          "circularity": 0.41,
+          "mean_echogenicity": 29.2,
+          "is_subcapsular": false,
+          "is_dominant": true,
+          "category": "Dominant Follicle (>=10mm)",
+          "ai_confirmed": true,
+          "cam_activation": 0.313
+        },
+        {
+          "id": 3,
+          "bbox": [
+            500,
+            37,
+            32,
+            29
+          ],
+          "center": [
+            515,
+            52
+          ],
+          "area_px": 412,
+          "diameter_mm": 6.4,
+          "major_mm": 8.5,
+          "minor_mm": 5.9,
+          "circularity": 0.57,
+          "mean_echogenicity": 30.4,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Maturing Antral (6-9mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.015
+        },
+        {
+          "id": 4,
+          "bbox": [
+            361,
+            118,
+            41,
+            16
+          ],
+          "center": [
+            381,
+            125
+          ],
+          "area_px": 342,
+          "diameter_mm": 5.8,
+          "major_mm": 11.4,
+          "minor_mm": 3.8,
+          "circularity": 0.45,
+          "mean_echogenicity": 36.7,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.195
+        },
+        {
+          "id": 5,
+          "bbox": [
+            556,
+            126,
+            36,
+            19
+          ],
+          "center": [
+            572,
+            134
+          ],
+          "area_px": 325,
+          "diameter_mm": 5.7,
+          "major_mm": 10.7,
+          "minor_mm": 3.4,
+          "circularity": 0.51,
+          "mean_echogenicity": 44.1,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.142
+        },
+        {
+          "id": 6,
+          "bbox": [
+            636,
+            185,
+            21,
+            26
+          ],
+          "center": [
+            645,
+            196
+          ],
+          "area_px": 247,
+          "diameter_mm": 5.0,
+          "major_mm": 5.7,
+          "minor_mm": 5.3,
+          "circularity": 0.49,
+          "mean_echogenicity": 42.7,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.01
+        },
+        {
+          "id": 7,
+          "bbox": [
+            188,
+            170,
+            22,
+            20
+          ],
+          "center": [
+            197,
+            179
+          ],
+          "area_px": 240,
+          "diameter_mm": 4.9,
+          "major_mm": 6.9,
+          "minor_mm": 3.6,
+          "circularity": 0.73,
+          "mean_echogenicity": 18.9,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.078
+        },
+        {
+          "id": 8,
+          "bbox": [
+            412,
+            116,
+            25,
+            19
+          ],
+          "center": [
+            422,
+            123
+          ],
+          "area_px": 239,
+          "diameter_mm": 4.9,
+          "major_mm": 7.2,
+          "minor_mm": 3.7,
+          "circularity": 0.61,
+          "mean_echogenicity": 24.7,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.153
+        },
+        {
+          "id": 9,
+          "bbox": [
+            513,
+            79,
+            19,
+            22
+          ],
+          "center": [
+            521,
+            89
+          ],
+          "area_px": 190,
+          "diameter_mm": 4.4,
+          "major_mm": 5.7,
+          "minor_mm": 4.0,
+          "circularity": 0.57,
+          "mean_echogenicity": 44.8,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.052
+        },
+        {
+          "id": 10,
+          "bbox": [
+            233,
+            131,
+            19,
+            19
+          ],
+          "center": [
+            241,
+            140
+          ],
+          "area_px": 178,
+          "diameter_mm": 4.2,
+          "major_mm": 6.4,
+          "minor_mm": 3.2,
+          "circularity": 0.65,
+          "mean_echogenicity": 43.1,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.133
+        },
+        {
+          "id": 11,
+          "bbox": [
+            717,
+            143,
+            18,
+            17
+          ],
+          "center": [
+            726,
+            150
+          ],
+          "area_px": 154,
+          "diameter_mm": 3.9,
+          "major_mm": 5.9,
+          "minor_mm": 2.9,
+          "circularity": 0.64,
+          "mean_echogenicity": 43.0,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.035
+        },
+        {
+          "id": 12,
+          "bbox": [
+            417,
+            48,
+            29,
+            12
+          ],
+          "center": [
+            428,
+            52
+          ],
+          "area_px": 155,
+          "diameter_mm": 3.9,
+          "major_mm": 7.9,
+          "minor_mm": 3.0,
+          "circularity": 0.41,
+          "mean_echogenicity": 39.6,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.052
+        },
+        {
+          "id": 13,
+          "bbox": [
+            719,
+            170,
+            12,
+            16
+          ],
+          "center": [
+            723,
+            176
+          ],
+          "area_px": 108,
+          "diameter_mm": 3.3,
+          "major_mm": 4.2,
+          "minor_mm": 3.1,
+          "circularity": 0.62,
+          "mean_echogenicity": 49.2,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.013
+        },
+        {
+          "id": 14,
+          "bbox": [
+            433,
+            94,
+            20,
+            14
+          ],
+          "center": [
+            443,
+            100
+          ],
+          "area_px": 107,
+          "diameter_mm": 3.3,
+          "major_mm": 6.1,
+          "minor_mm": 2.7,
+          "circularity": 0.39,
+          "mean_echogenicity": 17.5,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.049
+        },
+        {
+          "id": 15,
+          "bbox": [
+            565,
+            111,
+            19,
+            11
+          ],
+          "center": [
+            573,
+            115
+          ],
+          "area_px": 99,
+          "diameter_mm": 3.1,
+          "major_mm": 5.6,
+          "minor_mm": 2.3,
+          "circularity": 0.54,
+          "mean_echogenicity": 48.8,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.095
+        },
+        {
+          "id": 16,
+          "bbox": [
+            432,
+            84,
+            14,
+            11
+          ],
+          "center": [
+            439,
+            89
+          ],
+          "area_px": 97,
+          "diameter_mm": 3.1,
+          "major_mm": 3.6,
+          "minor_mm": 2.8,
+          "circularity": 0.71,
+          "mean_echogenicity": 27.2,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.08
+        },
+        {
+          "id": 17,
+          "bbox": [
+            376,
+            38,
+            12,
+            13
+          ],
+          "center": [
+            381,
+            43
+          ],
+          "area_px": 95,
+          "diameter_mm": 3.1,
+          "major_mm": 3.4,
+          "minor_mm": 3.1,
+          "circularity": 0.68,
+          "mean_echogenicity": 50.6,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.0
+        },
+        {
+          "id": 18,
+          "bbox": [
+            525,
+            171,
+            11,
+            13
+          ],
+          "center": [
+            530,
+            176
+          ],
+          "area_px": 90,
+          "diameter_mm": 3.0,
+          "major_mm": 3.4,
+          "minor_mm": 2.8,
+          "circularity": 0.81,
+          "mean_echogenicity": 32.2,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": true,
+          "cam_activation": 0.393
+        },
+        {
+          "id": 19,
+          "bbox": [
+            485,
+            73,
+            15,
+            12
+          ],
+          "center": [
+            491,
+            78
+          ],
+          "area_px": 92,
+          "diameter_mm": 3.0,
+          "major_mm": 3.4,
+          "minor_mm": 3.1,
+          "circularity": 0.7,
+          "mean_echogenicity": 46.5,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.035
+        },
+        {
+          "id": 20,
+          "bbox": [
+            130,
+            104,
+            13,
+            16
+          ],
+          "center": [
+            135,
+            111
+          ],
+          "area_px": 79,
+          "diameter_mm": 2.8,
+          "major_mm": 5.2,
+          "minor_mm": 1.7,
+          "circularity": 0.54,
+          "mean_echogenicity": 48.9,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.076
+        },
+        {
+          "id": 21,
+          "bbox": [
+            352,
+            81,
+            14,
+            14
+          ],
+          "center": [
+            358,
+            86
+          ],
+          "area_px": 79,
+          "diameter_mm": 2.8,
+          "major_mm": 4.6,
+          "minor_mm": 1.9,
+          "circularity": 0.58,
+          "mean_echogenicity": 42.0,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.089
+        },
+        {
+          "id": 22,
+          "bbox": [
+            372,
+            103,
+            18,
+            9
+          ],
+          "center": [
+            380,
+            107
+          ],
+          "area_px": 71,
+          "diameter_mm": 2.7,
+          "major_mm": 4.8,
+          "minor_mm": 1.9,
+          "circularity": 0.46,
+          "mean_echogenicity": 41.5,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.126
+        },
+        {
+          "id": 23,
+          "bbox": [
+            353,
+            142,
+            16,
+            9
+          ],
+          "center": [
+            359,
+            144
+          ],
+          "area_px": 67,
+          "diameter_mm": 2.6,
+          "major_mm": 4.3,
+          "minor_mm": 1.8,
+          "circularity": 0.52,
+          "mean_echogenicity": 49.2,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": true,
+          "cam_activation": 0.475
+        },
+        {
+          "id": 24,
+          "bbox": [
+            108,
+            140,
+            9,
+            13
+          ],
+          "center": [
+            111,
+            145
+          ],
+          "area_px": 70,
+          "diameter_mm": 2.6,
+          "major_mm": 3.4,
+          "minor_mm": 2.2,
+          "circularity": 0.75,
+          "mean_echogenicity": 47.3,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.064
+        },
+        {
+          "id": 25,
+          "bbox": [
+            142,
+            406,
+            13,
+            12
+          ],
+          "center": [
+            147,
+            411
+          ],
+          "area_px": 61,
+          "diameter_mm": 2.5,
+          "major_mm": 4.2,
+          "minor_mm": 1.5,
+          "circularity": 0.59,
+          "mean_echogenicity": 48.2,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.124
+        },
+        {
+          "id": 26,
+          "bbox": [
+            241,
+            160,
+            12,
+            8
+          ],
+          "center": [
+            246,
+            162
+          ],
+          "area_px": 57,
+          "diameter_mm": 2.4,
+          "major_mm": 3.1,
+          "minor_mm": 2.0,
+          "circularity": 0.77,
+          "mean_echogenicity": 25.2,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.243
+        },
+        {
+          "id": 27,
+          "bbox": [
+            501,
+            30,
+            14,
+            7
+          ],
+          "center": [
+            507,
+            32
+          ],
+          "area_px": 59,
+          "diameter_mm": 2.4,
+          "major_mm": 3.6,
+          "minor_mm": 1.7,
+          "circularity": 0.65,
+          "mean_echogenicity": 46.3,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.0
+        },
+        {
+          "id": 28,
+          "bbox": [
+            333,
+            260,
+            11,
+            7
+          ],
+          "center": [
+            337,
+            262
+          ],
+          "area_px": 51,
+          "diameter_mm": 2.3,
+          "major_mm": 2.8,
+          "minor_mm": 1.7,
+          "circularity": 0.73,
+          "mean_echogenicity": 48.3,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": true,
+          "cam_activation": 0.643
+        },
+        {
+          "id": 29,
+          "bbox": [
+            364,
+            53,
+            10,
+            9
+          ],
+          "center": [
+            368,
+            57
+          ],
+          "area_px": 53,
+          "diameter_mm": 2.3,
+          "major_mm": 2.5,
+          "minor_mm": 2.2,
+          "circularity": 0.72,
+          "mean_echogenicity": 51.4,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.125
+        },
+        {
+          "id": 30,
+          "bbox": [
+            277,
+            98,
+            10,
+            9
+          ],
+          "center": [
+            281,
+            100
+          ],
+          "area_px": 48,
+          "diameter_mm": 2.2,
+          "major_mm": 2.5,
+          "minor_mm": 2.2,
+          "circularity": 0.7,
+          "mean_echogenicity": 47.2,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.056
+        },
+        {
+          "id": 31,
+          "bbox": [
+            651,
+            159,
+            9,
+            8
+          ],
+          "center": [
+            654,
+            162
+          ],
+          "area_px": 43,
+          "diameter_mm": 2.1,
+          "major_mm": 2.2,
+          "minor_mm": 2.0,
+          "circularity": 0.81,
+          "mean_echogenicity": 24.2,
+          "is_subcapsular": true,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.04
+        },
+        {
+          "id": 32,
+          "bbox": [
+            349,
+            108,
+            8,
+            9
+          ],
+          "center": [
+            352,
+            111
+          ],
+          "area_px": 45,
+          "diameter_mm": 2.1,
+          "major_mm": 2.2,
+          "minor_mm": 2.0,
+          "circularity": 0.78,
+          "mean_echogenicity": 49.9,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.116
+        },
+        {
+          "id": 33,
+          "bbox": [
+            329,
+            125,
+            8,
+            10
+          ],
+          "center": [
+            332,
+            129
+          ],
+          "area_px": 40,
+          "diameter_mm": 2.0,
+          "major_mm": 3.0,
+          "minor_mm": 1.5,
+          "circularity": 0.71,
+          "mean_echogenicity": 48.7,
+          "is_subcapsular": false,
+          "is_dominant": false,
+          "category": "Small Antral (2-5mm)",
+          "ai_confirmed": false,
+          "cam_activation": 0.188
+        }
+      ],
+      "disclaimer": "Quantitative ultrasound follicle detection & LayerCAM explainability. Academic research screening tool."
+    },
+    "confidence_bars": 2,
+    "confidence_color": "#d97706",
+    "model_name": "ConvNeXt-Tiny V6 (Primary Champion)"
+  }
+}
