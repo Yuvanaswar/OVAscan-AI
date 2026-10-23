@@ -21,3 +21,6 @@ uploads/*
 
 static/gradcam_output/*
 !static/gradcam_output/.gitkeep
+
+# Temporary scratch files
+scratch/
