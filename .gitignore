@@ -27,3 +27,5 @@ scratch/
 
 # Clinical real-time dataset (kept private locally)
 real time data/
+
+cloudflared.exe
