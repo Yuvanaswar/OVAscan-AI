@@ -1,9 +1,10 @@
 torch>=2.0.0
 torchvision>=0.15.0
-numpy>=1.22.0
-pandas>=1.5.0
-matplotlib>=3.5.0
-Pillow>=9.0.0
-scikit-learn>=1.0.0
-nbformat>=5.7.0
-ipykernel>=6.0.0
+flask>=2.2.0
+flask-cors>=3.0.10
+opencv-python>=4.7.0
+pillow>=9.5.0
+numpy>=1.24.0
+pandas>=2.0.0
+matplotlib>=3.7.0
+scikit-learn>=1.2.0

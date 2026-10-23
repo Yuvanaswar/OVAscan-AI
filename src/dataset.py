@@ -1,138 +1,93 @@
 """
-PyTorch Dataset and DataLoader implementation for 3-Class Ovarian Ultrasound Benchmark
+PyTorch Dataset and DataLoader for 3-Class Ovarian Ultrasound AI.
+Supports 3 Clinical Classes:
+  - Class 0: Normal Ovary (NORMAL / Non-PCOS)
+  - Class 1: PCOS (Polycystic Ovary Syndrome)
+  - Class 2: Dominant Follicle (DF / Ovulatory Follicle)
+Supports loading from structured folders ('real time data' and 'data') and split CSVs.
 """
 
-from typing import Tuple, List, Optional
-import os
+from pathlib import Path
+from typing import Tuple, Dict, Optional, List
 import pandas as pd
-import numpy as np
+from PIL import Image
 import torch
-from torch.utils.data import Dataset, DataLoader, WeightedRandomSampler
+from torch.utils.data import Dataset, DataLoader
 
-from src.preprocessing import UltrasoundPreprocessingPipeline
+from .preprocessing import letterbox_pad_to_square, get_train_transform, get_eval_transform
 
-class OvarianUltrasoundDataset(Dataset):
-    """
-    Standardized Dataset for 3-Class Ovarian Ultrasound.
-    """
-    def __init__(
-        self,
-        manifest_path: str = "manifest.csv",
-        split: str = "train",
-        is_train: Optional[bool] = None,
-        inpaint: bool = True
-    ):
-        super().__init__()
-        self.split = split
-        self.is_train = (split == "train") if is_train is None else is_train
-        
-        # Load manifest
-        df = pd.read_csv(manifest_path)
-        self.data = df[df["split"] == split].reset_index(drop=True)
-        
-        if len(self.data) == 0:
-            raise ValueError(f"No samples found for split '{split}' in {manifest_path}")
-            
-        self.transform = UltrasoundPreprocessingPipeline(
-            target_size=(224, 224),
-            is_train=self.is_train,
-            inpaint=inpaint
-        )
-        
-        # Dynamically fix paths from manifest to be relative to the current environment's DATA_DIR
-        import sys
-        from pathlib import Path
-        sys.path.append(str(Path(__file__).resolve().parent.parent))
-        from config import DATA_DIR
-        def fix_path(p):
-            p = str(p).replace("\\", "/")
-            parts = p.split("/")
-            # The structure is usually .../clean_data/split/class/image.png
-            # We want to keep split/class/image.png or similar.
-            try:
-                idx = parts.index("clean_data")
-                rel_path = "/".join(parts[idx:])
-                return str(DATA_DIR / rel_path)
-            except ValueError:
-                # If clean_data is not in path, return as is or join with DATA_DIR
-                return str(DATA_DIR / Path(p).name)
-        
-        self.targets = self.data["class_id"].values.astype(np.int64)
-        self.paths = [fix_path(p) for p in self.data["image_path"].values]
+CLASS_MAP_3 = {
+    # Class 0: Normal Ovary
+    "normal": 0,
+    "non-pcos": 0,
+    "normal ovary": 0,
+    "normal_preservation": 0,
+    "eps": 0,
+    # Class 1: PCOS
+    "pcos": 1,
+    "pco": 1,
+    # Class 2: Dominant Follicle
+    "df": 2,
+    "dominant_follicle": 2,
+    "dominant follicle": 2
+}
 
-    def __len__(self) -> int:
-        return len(self.data)
+CLASS_NAMES = ["Normal Ovary", "PCOS", "Dominant Follicle"]
 
-    def __getitem__(self, idx: int) -> Tuple[torch.Tensor, int, str]:
-        row = self.data.iloc[idx]
-        img_path = self.paths[idx]
-        label = int(row["class_id"])
-        
-        tensor = self.transform(img_path)
-        return tensor, label, img_path
+class PCOSUltrasoundDataset(Dataset):
+    def __init__(self, data_split_dir: Path, csv_file: Optional[Path] = None, transform=None):
+        self.data_dir = Path(data_split_dir)
+        self.transform = transform
+        self.samples: List[Tuple[Path, int, int]] = []
 
+        if csv_file and Path(csv_file).exists():
+            df = pd.read_csv(csv_file)
+            for _, r in df.iterrows():
+                # Check relative_path or construct from folder
+                p = Path(r["relative_path"]) if "relative_path" in r else self.data_dir / r["label"] / r["imagePath"]
+                raw_lbl = str(r["label"]).strip().lower()
+                label_idx = CLASS_MAP_3.get(raw_lbl, 0)
+                self.samples.append((p, label_idx, r.get("group", -1)))
+        else:
+            # Load directly from folder structure
+            if self.data_dir.exists():
+                for subfolder in self.data_dir.iterdir():
+                    if subfolder.is_dir():
+                        folder_name_lower = subfolder.name.strip().lower()
+                        if folder_name_lower in CLASS_MAP_3:
+                            label_idx = CLASS_MAP_3[folder_name_lower]
+                            for img_p in subfolder.glob("*.*"):
+                                if img_p.suffix.lower() in [".jpg", ".jpeg", ".png", ".bmp", ".webp"]:
+                                    self.samples.append((img_p, label_idx, -1))
 
-def get_dataloaders(
-    manifest_path: str = "manifest.csv",
-    batch_size: int = 16,
-    num_workers: int = 0,
-    use_sampler: bool = True
-) -> Tuple[DataLoader, DataLoader, DataLoader, torch.Tensor]:
-    """
-    Builds standard DataLoaders for Train, Validation, and Test sets.
-    Computes class weights and applies WeightedRandomSampler on the training split.
-    """
-    train_dataset = OvarianUltrasoundDataset(manifest_path, split="train", is_train=True)
-    val_dataset = OvarianUltrasoundDataset(manifest_path, split="val", is_train=False)
-    test_dataset = OvarianUltrasoundDataset(manifest_path, split="test", is_train=False)
+    def __len__(self):
+        return len(self.samples)
 
-    # Class balance weights computation
-    train_targets = train_dataset.targets
-    classes, counts = np.unique(train_targets, return_counts=True)
-    total_samples = len(train_targets)
+    def __getitem__(self, idx):
+        img_path, label, group = self.samples[idx]
+        image = Image.open(img_path).convert("RGB")
+        image = letterbox_pad_to_square(image)
+
+        if self.transform:
+            image = self.transform(image)
+
+        return image, torch.tensor(label, dtype=torch.long), group
+
+def create_dataloaders(base_data_dir: Path, batch_size: int = 16, num_workers: int = 0):
+    base = Path(base_data_dir)
     
-    # Class weights: total / (num_classes * count)
-    class_weights = total_samples / (len(classes) * counts.astype(np.float32))
-    class_weights_tensor = torch.tensor(class_weights, dtype=torch.float32)
+    # Check if 'real time data' or 'data' subdirectories exist
+    train_dir = base / "train"
+    val_dir = base / "val" if (base / "val").exists() else base / "validation"
+    test_dir = base / "test"
 
-    # Sample weights for WeightedRandomSampler
-    if use_sampler:
-        sample_weights = np.array([class_weights[t] for t in train_targets])
-        sampler = WeightedRandomSampler(
-            weights=sample_weights,
-            num_samples=len(sample_weights),
-            replacement=True
-        )
-        train_loader = DataLoader(
-            train_dataset,
-            batch_size=batch_size,
-            sampler=sampler,
-            num_workers=num_workers,
-            pin_memory=False
-        )
-    else:
-        train_loader = DataLoader(
-            train_dataset,
-            batch_size=batch_size,
-            shuffle=True,
-            num_workers=num_workers,
-            pin_memory=False
-        )
+    train_ds = PCOSUltrasoundDataset(train_dir, base / "train.csv" if (base / "train.csv").exists() else None, transform=get_train_transform())
+    val_ds = PCOSUltrasoundDataset(val_dir, base / "val.csv" if (base / "val.csv").exists() else None, transform=get_eval_transform())
+    test_ds = PCOSUltrasoundDataset(test_dir, base / "test.csv" if (base / "test.csv").exists() else None, transform=get_eval_transform())
 
-    val_loader = DataLoader(
-        val_dataset,
-        batch_size=batch_size,
-        shuffle=False,
-        num_workers=num_workers,
-        pin_memory=False
-    )
-    
-    test_loader = DataLoader(
-        test_dataset,
-        batch_size=batch_size,
-        shuffle=False,
-        num_workers=num_workers,
-        pin_memory=False
-    )
+    train_loader = DataLoader(train_ds, batch_size=batch_size, shuffle=True, num_workers=num_workers)
+    val_loader = DataLoader(val_ds, batch_size=batch_size, shuffle=False, num_workers=num_workers)
+    test_loader = DataLoader(test_ds, batch_size=batch_size, shuffle=False, num_workers=num_workers)
 
-    return train_loader, val_loader, test_loader, class_weights_tensor
+    return train_loader, val_loader, test_loader
+

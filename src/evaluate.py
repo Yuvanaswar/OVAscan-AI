@@ -1,193 +1,105 @@
 """
-Comprehensive Evaluation Suite for 3-Class Ovarian Ultrasound Benchmark
-Computes:
-  - Accuracy, Balanced Accuracy
-  - Macro & Weighted Precision, Recall, F1
-  - Macro ROC-AUC
-  - Class-specific metrics (Normal, PCOS, DF)
-  - Cross-follicular confusion errors (PCOS -> DF, DF -> PCOS, Normal -> PCOS, PCOS -> Normal)
-  - Confusion matrix & ROC plots
-  - Parameter count, checkpoint size, and inference latency profiling
+Evaluation Script for Top-2 Clinical Ovarian Ultrasound Models on 3-Class Test Set.
+Supports:
+  - ConvNeXt-Tiny V6 (Primary Champion)
+  - ResNet-50 (Deep Residual Top-2 Benchmark)
+Evaluates on 'real time data/test' across:
+  - Class 0: Normal Ovary
+  - Class 1: PCOS (Polycystic Ovary Syndrome)
+  - Class 2: Dominant Follicle (DF)
 """
 
-import os
-import time
-from typing import Dict, Any, List, Tuple
+from pathlib import Path
+import argparse
 import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
+from PIL import Image
 import torch
-import torch.nn as nn
-from torch.utils.data import DataLoader
-from sklearn.metrics import (
-    accuracy_score,
-    balanced_accuracy_score,
-    precision_score,
-    recall_score,
-    f1_score,
-    roc_auc_score,
-    confusion_matrix,
-    roc_curve,
-    auc
-)
+import torch.nn.functional as F
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, f1_score
 
-CLASS_NAMES = ["Normal Ovary", "PCOS", "Dominant Follicle"]
+from .models import build_model
+from .preprocessing import letterbox_pad_to_square, get_eval_transform, IMAGE_SIZE
+from .dataset import CLASS_NAMES
 
+DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-def evaluate_model(
-    model: nn.Module,
-    dataloader: DataLoader,
-    device: torch.device = torch.device("cpu")
-) -> Tuple[Dict[str, Any], np.ndarray, np.ndarray, List[str]]:
-    """
-    Evaluates a model over a DataLoader and computes all clinical & statistical metrics.
-    """
-    model.eval()
-    model.to(device)
+def evaluate_model(model_name: str, ckpt_path: Path, test_dir: Path):
+    arch = "convnext_tiny" if "convnext" in model_name.lower() else "resnet50"
+    model = build_model(arch, num_classes=3, pretrained=False)
 
-    all_preds = []
-    all_probs = []
-    all_targets = []
-    all_paths = []
-    latencies = []
+    ckpt = torch.load(ckpt_path, map_location=DEVICE, weights_only=False)
+    state = ckpt["model_state_dict"] if isinstance(ckpt, dict) and "model_state_dict" in ckpt else ckpt
+    cleaned_state = {k.replace("backbone.", ""): v for k, v in state.items()}
+    model.load_state_dict(cleaned_state)
+    model.to(DEVICE).eval()
 
-    with torch.no_grad():
-        for inputs, targets, paths in dataloader:
-            inputs = inputs.to(device)
-            
-            # Measure inference latency per batch
-            start_t = time.perf_counter()
-            outputs = model(inputs)
-            if device.type == "cuda":
-                torch.cuda.synchronize()
-            batch_time = (time.perf_counter() - start_t) / inputs.size(0)
-            latencies.extend([batch_time * 1000.0] * inputs.size(0))  # ms
+    eval_tf = get_eval_transform(IMAGE_SIZE)
 
-            probs = torch.softmax(outputs, dim=1).cpu().numpy()
-            preds = np.argmax(probs, axis=1)
+    y_true = []
+    y_pred = []
+    y_probs = []
 
-            all_preds.extend(preds)
-            all_probs.extend(probs)
-            all_targets.extend(targets.numpy())
-            all_paths.extend(paths)
+    class_subfolders = [("NORMAL", 0), ("PCOS", 1), ("DF", 2)]
 
-    all_preds = np.array(all_preds)
-    all_probs = np.array(all_probs)
-    all_targets = np.array(all_targets)
+    for folder_name, label_idx in class_subfolders:
+        dir_p = test_dir / folder_name
+        if not dir_p.exists():
+            continue
+        for img_path in sorted(dir_p.glob("*.*")):
+            if img_path.suffix.lower() not in [".jpg", ".jpeg", ".png", ".bmp", ".webp"]:
+                continue
+            try:
+                img = Image.open(img_path).convert("RGB")
+                img_padded = letterbox_pad_to_square(img)
+                tensor = eval_tf(img_padded).unsqueeze(0).to(DEVICE)
 
-    # 1. Overall Metrics
-    acc = accuracy_score(all_targets, all_preds)
-    bal_acc = balanced_accuracy_score(all_targets, all_preds)
-    macro_prec = precision_score(all_targets, all_preds, average="macro", zero_division=0)
-    macro_rec = recall_score(all_targets, all_preds, average="macro", zero_division=0)
-    macro_f1 = f1_score(all_targets, all_preds, average="macro", zero_division=0)
-    weighted_f1 = f1_score(all_targets, all_preds, average="weighted", zero_division=0)
+                with torch.no_grad():
+                    logits = model(tensor)
+                    probs = F.softmax(logits, dim=1)[0].cpu().numpy()
 
-    # Macro ROC-AUC (one-vs-rest)
-    try:
-        macro_auc = roc_auc_score(all_targets, all_probs, multi_class="ovr", average="macro")
-    except Exception:
-        macro_auc = 0.0
+                pred_class = int(np.argmax(probs))
+                y_true.append(label_idx)
+                y_pred.append(pred_class)
+                y_probs.append(probs)
+            except Exception as e:
+                print(f"Error processing {img_path.name}: {e}")
 
-    # 2. Per-class metrics
-    per_cls_prec = precision_score(all_targets, all_preds, average=None, zero_division=0)
-    per_cls_rec = recall_score(all_targets, all_preds, average=None, zero_division=0)
-    per_cls_f1 = f1_score(all_targets, all_preds, average=None, zero_division=0)
+    y_true = np.array(y_true)
+    y_pred = np.array(y_pred)
 
-    # 3. Confusion Matrix & Cross-Follicular Errors
-    cm = confusion_matrix(all_targets, all_preds, labels=[0, 1, 2])
-    
-    # cm[True, Pred]
-    # 0 = Normal, 1 = PCOS, 2 = DF
-    pcos_to_df = int(cm[1, 2])
-    df_to_pcos = int(cm[2, 1])
-    normal_to_pcos = int(cm[0, 1])
-    pcos_to_normal = int(cm[1, 0])
+    acc = accuracy_score(y_true, y_pred)
+    macro_f1 = f1_score(y_true, y_pred, average="macro")
+    cm = confusion_matrix(y_true, y_pred)
+    report = classification_report(y_true, y_pred, target_names=CLASS_NAMES, digits=4)
 
-    # 4. Latency & Model Complexity
-    mean_latency_ms = float(np.mean(latencies))
-    total_params = sum(p.numel() for p in model.parameters())
+    print(f"\n==================== {model_name} (3-Class Test Evaluation) ====================")
+    print(f"Total Test Samples: {len(y_true)}")
+    print(f"Overall Accuracy  : {acc * 100:.2f}%")
+    print(f"Macro F1-Score    : {macro_f1:.4f}")
+    print("\nConfusion Matrix (Rows: True, Cols: Pred):")
+    print("                 Pred Normal   Pred PCOS   Pred DF")
+    for idx, c_name in enumerate(CLASS_NAMES):
+        row_str = " ".join([f"{cm[idx, j]:11d}" for j in range(3)])
+        print(f"True {c_name:10s} : {row_str}")
+    print("\nDetailed Classification Report:")
+    print(report)
+    print("=================================================================================\n")
 
-    metrics = {
-        "Accuracy": round(float(acc), 4),
-        "Balanced_Accuracy": round(float(bal_acc), 4),
-        "Macro_Precision": round(float(macro_prec), 4),
-        "Macro_Recall": round(float(macro_rec), 4),
-        "Macro_F1": round(float(macro_f1), 4),
-        "Weighted_F1": round(float(weighted_f1), 4),
-        "Macro_AUC": round(float(macro_auc), 4),
-        # Normal
-        "Normal_Precision": round(float(per_cls_prec[0]), 4),
-        "Normal_Recall": round(float(per_cls_rec[0]), 4),
-        "Normal_F1": round(float(per_cls_f1[0]), 4),
-        # PCOS
-        "PCOS_Precision": round(float(per_cls_prec[1]), 4),
-        "PCOS_Recall": round(float(per_cls_rec[1]), 4),
-        "PCOS_F1": round(float(per_cls_f1[1]), 4),
-        # Dominant Follicle
-        "DF_Precision": round(float(per_cls_prec[2]), 4),
-        "DF_Recall": round(float(per_cls_rec[2]), 4),
-        "DF_F1": round(float(per_cls_f1[2]), 4),
-        # Critical Cross-Errors
-        "PCOS_to_DF": pcos_to_df,
-        "DF_to_PCOS": df_to_pcos,
-        "Normal_to_PCOS": normal_to_pcos,
-        "PCOS_to_Normal": pcos_to_normal,
-        # Hardware
-        "Parameters": total_params,
-        "Inference_Latency_ms": round(mean_latency_ms, 2)
-    }
+    return {"accuracy": acc, "macro_f1": macro_f1, "confusion_matrix": cm}
 
-    return metrics, cm, all_probs, all_preds
+def main():
+    root = Path(__file__).resolve().parent.parent
+    test_dir = root / "real time data" / "test"
+    models_dir = root / "models"
 
+    convnext_ckpt = models_dir / "V6_ConvNeXt-Tiny" / "best_convnext_tiny_3class.pth"
+    resnet_ckpt = models_dir / "ResNet50" / "best_resnet50_3class.pth"
 
-def plot_confusion_matrix(cm: np.ndarray, model_name: str, save_path: str):
-    fig, ax = plt.subplots(figsize=(6, 5))
-    im = ax.imshow(cm, interpolation="nearest", cmap=plt.cm.Blues)
-    ax.figure.colorbar(im, ax=ax)
-    
-    classes = CLASS_NAMES
-    ax.set(
-        xticks=np.arange(cm.shape[1]),
-        yticks=np.arange(cm.shape[0]),
-        xticklabels=classes,
-        yticklabels=classes,
-        title=f"Confusion Matrix: {model_name}",
-        ylabel="True Diagnosis",
-        xlabel="Predicted Diagnosis"
-    )
-    plt.setp(ax.get_xticklabels(), rotation=30, ha="right", rotation_mode="anchor")
+    print("Evaluating Top-2 Clinical Models on 3-Class Test Set...\n")
+    if convnext_ckpt.exists():
+        evaluate_model("ConvNeXt-Tiny V6 (Primary Champion)", convnext_ckpt, test_dir)
+    if resnet_ckpt.exists():
+        evaluate_model("ResNet-50 (Deep Residual Benchmark)", resnet_ckpt, test_dir)
 
-    thresh = cm.max() / 2.0
-    for i in range(cm.shape[0]):
-        for j in range(cm.shape[1]):
-            ax.text(j, i, format(cm[i, j], "d"),
-                    ha="center", va="center",
-                    color="white" if cm[i, j] > thresh else "black",
-                    fontweight="bold")
-    fig.tight_layout()
-    plt.savefig(save_path, dpi=200)
-    plt.close()
-
-
-def plot_roc_curves(all_targets: np.ndarray, all_probs: np.ndarray, model_name: str, save_path: str):
-    fig, ax = plt.subplots(figsize=(7, 6))
-    colors = ["#1f77b4", "#ff7f0e", "#2ca02c"]
-    
-    for i, (cname, color) in enumerate(zip(CLASS_NAMES, colors)):
-        binary_targets = (all_targets == i).astype(int)
-        fpr, tpr, _ = roc_curve(binary_targets, all_probs[:, i])
-        cls_auc = auc(fpr, tpr)
-        ax.plot(fpr, tpr, color=color, lw=2, label=f"{cname} (AUC = {cls_auc:.3f})")
-
-    ax.plot([0, 1], [0, 1], "k--", lw=1.5)
-    ax.set_xlim([0.0, 1.0])
-    ax.set_ylim([0.0, 1.05])
-    ax.set_xlabel("False Positive Rate (1 - Specificity)")
-    ax.set_ylabel("True Positive Rate (Sensitivity)")
-    ax.set_title(f"ROC Curves: {model_name}")
-    ax.legend(loc="lower right")
-    ax.grid(True, linestyle="--", alpha=0.5)
-    fig.tight_layout()
-    plt.savefig(save_path, dpi=200)
-    plt.close()
+if __name__ == "__main__":
+    main()

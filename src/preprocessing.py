@@ -1,151 +1,136 @@
 """
-Common Preprocessing and Augmentation Pipeline for 3-Class Ovarian Ultrasound Benchmark
-Strict adherence to:
-- Image quality validation
-- RGB conversion
-- Aspect-ratio preserving letterbox resize (224x224) - NO STRETCHING
-- Optional Telea caliper inpainting to remove spurious measurement markers
-- ImageNet normalization (mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
-- Training augmentation: Horizontal flip (p=0.5), ±7° rotation, mild intensity gain (±10%)
-- Validation/Test: Zero random augmentation (pure deterministic letterbox + norm)
+Ultrasound Preprocessing, Letterbox Padding, and Out-of-Distribution (OOD) Quality Gate.
 """
 
-import math
-import random
-from typing import Tuple, Optional, Union
-import cv2
 import numpy as np
+import cv2
+from PIL import Image
 import torch
 from torchvision import transforms
-from PIL import Image
 
+IMAGE_SIZE = 224
 IMAGENET_MEAN = [0.485, 0.456, 0.406]
 IMAGENET_STD = [0.229, 0.224, 0.225]
 
-
-def inpaint_calipers(img_rgb: np.ndarray, threshold: int = 250, radius: int = 3) -> np.ndarray:
+def letterbox_pad_to_square(image: Image.Image, fill_color=(0, 0, 0)) -> Image.Image:
     """
-    Applies Telea fast-marching inpainting to remove electronic calipers, measurement crosses,
-    and high-contrast marker lines to prevent artificial feature shortcut learning.
+    Pads an image to a 1:1 square aspect ratio without stretching.
+    Preserves true circular follicular geometry.
     """
-    gray = cv2.cvtColor(img_rgb, cv2.COLOR_RGB2GRAY)
-    mask = (gray >= threshold).astype(np.uint8) * 255
-    
-    # Filter for small connected components (crosses/calipers)
-    num_labels, labels, stats, _ = cv2.connectedComponentsWithStats(mask)
-    caliper_mask = np.zeros_like(mask)
-    for i in range(1, num_labels):
-        area = stats[i, cv2.CC_STAT_AREA]
-        if 4 <= area <= 100:  # Caliper / text marker size
-            caliper_mask[labels == i] = 255
-            
-    if np.any(caliper_mask):
-        inpainted = cv2.inpaint(img_rgb, caliper_mask, radius, cv2.INPAINT_TELEA)
-        return inpainted
-    return img_rgb
+    w, h = image.size
+    if w == h:
+        return image
+    max_side = max(w, h)
+    padded = Image.new("RGB", (max_side, max_side), fill_color)
+    offset_x = (max_side - w) // 2
+    offset_y = (max_side - h) // 2
+    padded.paste(image, (offset_x, offset_y))
+    return padded
 
+def get_train_transform(image_size: int = 224):
+    return transforms.Compose([
+        transforms.Resize((image_size, image_size)),
+        transforms.RandomHorizontalFlip(p=0.5),
+        transforms.RandomRotation(degrees=10),
+        transforms.ColorJitter(brightness=0.15, contrast=0.15),
+        transforms.ToTensor(),
+        transforms.Normalize(mean=IMAGENET_MEAN, std=IMAGENET_STD)
+    ])
 
-def letterbox_image(
-    image: np.ndarray,
-    target_size: Tuple[int, int] = (224, 224),
-    fill_color: Tuple[int, int, int] = (0, 0, 0)
-) -> Tuple[np.ndarray, float, Tuple[int, int]]:
+def get_eval_transform(image_size: int = 224):
+    return transforms.Compose([
+        transforms.Resize((image_size, image_size)),
+        transforms.ToTensor(),
+        transforms.Normalize(mean=IMAGENET_MEAN, std=IMAGENET_STD)
+    ])
+
+def validate_ultrasound_input(pil_image: Image.Image):
     """
-    Resizes an image preserving aspect ratio with symmetric zero-padding (letterboxing).
-    NEVER stretches or distorts anatomical ovarian structures.
-    
-    Returns:
-      letterboxed_image: (target_size[1], target_size[0], 3)
-      scale: ratio applied to original image
-      pad: (pad_w, pad_h) offsets
+    Acoustic Domain & Quality Gate:
+    Pre-screens images to reject non-ultrasound photos, UI graphics, and corrupt files.
     """
-    orig_h, orig_w = image.shape[:2]
-    target_w, target_h = target_size
+    img_np = np.array(pil_image)
+    if img_np.ndim == 2:
+        img_np = np.stack([img_np] * 3, axis=-1)
+    elif img_np.shape[2] == 4:
+        img_np = img_np[:, :, :3]
 
-    # Calculate scale factor
-    scale = min(target_w / orig_w, target_h / orig_h)
-    new_w = int(round(orig_w * scale))
-    new_h = int(round(orig_h * scale))
+    # 1. Grayscale Consistency Check
+    r, g, b = img_np[:, :, 0], img_np[:, :, 1], img_np[:, :, 2]
+    rg_diff = np.abs(r.astype(np.float32) - g.astype(np.float32))
+    rb_diff = np.abs(r.astype(np.float32) - b.astype(np.float32))
+    color_std = float(np.mean(rg_diff + rb_diff))
 
-    # Resize with bilinear interpolation
-    resized = cv2.resize(image, (new_w, new_h), interpolation=cv2.INTER_LINEAR)
+    if color_std > 14.0:
+        return {
+            "is_valid": False,
+            "status": "unsupported_input",
+            "message": "Non-Ultrasound Image Detected. Color photographs and UI graphics are not supported. Please upload a monochromatic B-mode ultrasound scan.",
+            "details": {"reason": "Color image detected", "color_std": round(color_std, 1)}
+        }
 
-    # Compute symmetric padding
-    pad_w = (target_w - new_w) // 2
-    pad_h = (target_h - new_h) // 2
-    pad_w_extra = target_w - (new_w + pad_w)
-    pad_h_extra = target_h - (new_h + pad_h)
+    # 2. Dynamic Range & Intensity Extremes Check
+    gray = cv2.cvtColor(img_np, cv2.COLOR_RGB2GRAY)
+    mean_val = float(np.mean(gray))
+    std_val = float(np.std(gray))
 
-    # Apply letterbox border
-    letterboxed = cv2.copyMakeBorder(
-        resized,
-        pad_h, pad_h_extra, pad_w, pad_w_extra,
-        cv2.BORDER_CONSTANT,
-        value=fill_color
-    )
-    return letterboxed, scale, (pad_w, pad_h)
+    if mean_val < 15.0 or std_val < 12.0:
+        return {
+            "is_valid": False,
+            "status": "unsupported_input",
+            "message": "Low Signal / Blank Dark Image. Please provide a clear ovarian ultrasound scan with visible tissue parenchyma.",
+            "details": {"reason": "Insufficient tissue signal / near-black image", "mean_brightness": round(mean_val, 1), "contrast_std": round(std_val, 1)}
+        }
 
+    if mean_val > 228.0 and std_val < 35.0:
+        return {
+            "is_valid": False,
+            "status": "unsupported_input",
+            "message": "Overexposed / Blank White Screen Detected. Please upload an authentic ultrasound scan.",
+            "details": {"reason": "Overexposed white screen", "mean_brightness": round(mean_val, 1)}
+        }
 
-class UltrasoundPreprocessingPipeline:
+    # 3. Acoustic Speckle Edge Density Check
+    edges = cv2.Canny(gray, 40, 110)
+    edge_density = float(np.mean(edges > 0))
+    if edge_density < 0.008:
+        return {
+            "is_valid": False,
+            "status": "unsupported_input",
+            "message": "Acoustic Texture Absent. Image lacks the characteristic acoustic speckle pattern of B-mode ovarian ultrasound.",
+            "details": {"reason": "Flat synthetic graphic / no acoustic speckle", "edge_density": round(edge_density, 4)}
+        }
+
+    return {"is_valid": True, "status": "valid_ultrasound", "message": "Input passed acoustic ultrasound quality gate."}
+
+def unpad_cam_to_original(cam_224: np.ndarray, original_size: tuple) -> np.ndarray:
     """
-    Standardized, reproducible preprocessing pipeline for all models.
+    Maps 224x224 attribution heatmap back to original image aspect ratio without spatial offset.
     """
-    def __init__(
-        self,
-        target_size: Tuple[int, int] = (224, 224),
-        is_train: bool = False,
-        inpaint: bool = True
-    ):
-        self.target_size = target_size
-        self.is_train = is_train
-        self.inpaint = inpaint
-        
-        self.normalize = transforms.Normalize(mean=IMAGENET_MEAN, std=IMAGENET_STD)
+    w_orig, h_orig = original_size
+    max_side = max(w_orig, h_orig)
 
-    def __call__(self, img_input: Union[str, np.ndarray, Image.Image]) -> torch.Tensor:
-        # 1. Load / Convert to RGB NumPy array
-        if isinstance(img_input, str):
-            bgr = cv2.imread(img_input)
-            if bgr is None:
-                raise FileNotFoundError(f"Failed to load image from {img_input}")
-            img_rgb = cv2.cvtColor(bgr, cv2.COLOR_BGR2RGB)
-        elif isinstance(img_input, Image.Image):
-            img_rgb = np.array(img_input.convert("RGB"))
-        elif isinstance(img_input, np.ndarray):
-            if img_input.ndim == 2:
-                img_rgb = cv2.cvtColor(img_input, cv2.COLOR_GRAY2RGB)
-            elif img_input.shape[2] == 4:
-                img_rgb = cv2.cvtColor(img_input, cv2.COLOR_RGBA2RGB)
-            else:
-                img_rgb = img_input
-        else:
-            raise TypeError(f"Unsupported image type: {type(img_input)}")
+    cam_square = cv2.resize(cam_224, (max_side, max_side), interpolation=cv2.INTER_LINEAR)
+    pad_x = (max_side - w_orig) // 2
+    pad_y = (max_side - h_orig) // 2
 
-        # 2. Optional Telea Caliper Inpainting
-        if self.inpaint:
-            img_rgb = inpaint_calipers(img_rgb)
+    cam_cropped = cam_square[pad_y : pad_y + h_orig, pad_x : pad_x + w_orig]
+    cam_final = cv2.resize(cam_cropped, (IMAGE_SIZE, IMAGE_SIZE), interpolation=cv2.INTER_LINEAR)
 
-        # 3. Training Augmentation (Conservative, clinical)
-        if self.is_train:
-            # Horizontal Flip (p=0.5)
-            if random.random() < 0.5:
-                img_rgb = np.ascontiguousarray(np.fliplr(img_rgb))
+    if np.max(cam_final) > np.min(cam_final):
+        cam_final = (cam_final - np.min(cam_final)) / (np.max(cam_final) - np.min(cam_final))
+    return cam_final
 
-            # Mild Rotation (±7 degrees)
-            angle = random.uniform(-7.0, 7.0)
-            h, w = img_rgb.shape[:2]
-            M = cv2.getRotationMatrix2D((w / 2, h / 2), angle, 1.0)
-            img_rgb = cv2.warpAffine(img_rgb, M, (w, h), borderMode=cv2.BORDER_CONSTANT, borderValue=(0, 0, 0))
+def apply_acoustic_sector_gating(cam: np.ndarray, orig_np: np.ndarray):
+    """
+    Suppresses typographic machine headers (hospital text at top margin) and background black void.
+    """
+    gray = cv2.cvtColor((orig_np * 255).astype(np.uint8), cv2.COLOR_RGB2GRAY)
+    tissue_mask = (gray > 16).astype(np.float32)
+    # Zero out top 11% where hospital name and scanner metadata are printed
+    tissue_mask[:int(0.11 * cam.shape[0]), :] = 0.0
 
-            # Mild Gain / Intensity Jitter (±10%)
-            gain = random.uniform(0.90, 1.10)
-            img_rgb = np.clip(img_rgb.astype(np.float32) * gain, 0, 255).astype(np.uint8)
-
-        # 4. Aspect-ratio preserving resize & letterbox padding to (224, 224)
-        letterboxed, _, _ = letterbox_image(img_rgb, target_size=self.target_size)
-
-        # 5. Convert to Tensor (scales to [0, 1]) and apply ImageNet Normalization
-        tensor = torch.from_numpy(letterboxed).permute(2, 0, 1).float() / 255.0
-        normalized_tensor = self.normalize(tensor)
-
-        return normalized_tensor
+    gated_cam = cam * tissue_mask
+    if np.max(gated_cam) > np.min(gated_cam):
+        gated_cam = (gated_cam - np.min(gated_cam)) / (np.max(gated_cam) - np.min(gated_cam))
+    return gated_cam, tissue_mask

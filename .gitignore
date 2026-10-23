@@ -3,18 +3,21 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# Data and Checkpoints
-data/
-results/
-*.pth
-*.pt
-manifest.csv
-
-# Virtual Environments
-venv/
-env/
+# Virtual environments
 .venv/
+env/
+venv/
 
-# IDEs
+# Caches & IDE metadata
+.pytest_cache/
 .vscode/
 .idea/
+.DS_Store
+Thumbs.db
+
+# Temporary runtime output folders (keep structure via .gitkeep)
+uploads/*
+!uploads/.gitkeep
+
+static/gradcam_output/*
+!static/gradcam_output/.gitkeep

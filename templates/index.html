@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OvaScan AI — Clinical Ultrasound PACS Workstation</title>
+    <!-- Modern Typography: Plus Jakarta Sans & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=6.0">
+</head>
+<body class="workstation-body">
+
+    <!-- ==================== TOP PACS CONSOLE HEADER ==================== -->
+    <header class="pacs-header">
+        <div class="header-left">
+            <div class="pacs-brand">
+                <div class="brand-glyph">
+                    <svg viewBox="0 0 32 32" width="30" height="30" fill="none">
+                        <circle cx="16" cy="16" r="14" fill="#0f172a" stroke="#38bdf8" stroke-width="1.8"/>
+                        <circle cx="16" cy="16" r="6" fill="#f59e0b"/>
+                        <circle cx="11" cy="12" r="2.2" fill="#38bdf8"/>
+                        <circle cx="21" cy="12" r="2.2" fill="#10b981"/>
+                        <circle cx="12" cy="20" r="2.2" fill="#f43f5e"/>
+                        <circle cx="20" cy="20" r="2.2" fill="#a855f7"/>
+                    </svg>
+                </div>
+                <div class="brand-titles">
+                    <span class="pacs-logo-text">OvaScan <strong class="logo-accent">AI</strong></span>
+                    <span class="pacs-sub-text">Clinical Ultrasound PACS Workstation</span>
+                </div>
+            </div>
+
+            <div class="header-status-badge">
+                <span class="pulse-indicator"></span>
+                <span>Real Clinical Data &bull; 3-Class Diagnostic Engine</span>
+            </div>
+        </div>
+
+        <!-- Central Top-2 Production Model Toggle -->
+        <div class="header-center">
+            <div class="top2-model-toggle" id="top2ModelToggle" title="Select Active Deep Learning Architecture">
+                <button type="button" class="model-switch-btn active" data-model="convnext_v6_3class" id="btnModelConvNeXt">
+                    <span class="model-tier-badge">Top 1</span>
+                    <span class="model-btn-name">ConvNeXt-Tiny V6</span>
+                    <span class="model-btn-metric">84.9% Acc &bull; 0.85 F1</span>
+                </button>
+                <button type="button" class="model-switch-btn" data-model="resnet50_3class" id="btnModelResNet">
+                    <span class="model-tier-badge secondary">Top 2</span>
+                    <span class="model-btn-name">ResNet-50</span>
+                    <span class="model-btn-metric">96.6% DF Recall</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Header Actions -->
+        <div class="header-right">
+            <button type="button" class="pacs-hdr-btn primary" id="btnNewScan">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                <span>Upload Scan</span>
+            </button>
+            <div class="dropdown-wrap">
+                <button type="button" class="pacs-hdr-btn" id="btnQuickDemos">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                    <span>Clinical Samples</span>
+                </button>
+                <div class="quick-demos-menu hidden" id="quickDemosMenu">
+                    <div class="demos-menu-header">Select Clinical Test Scan</div>
+                    <button type="button" class="demo-select-item" data-demo="DF_Case_007.png">
+                        <span class="demo-badge df">DF</span>
+                        <div class="demo-info">
+                            <strong>Dominant Follicle Case 007</strong>
+                            <span>Graafian expansion &ge;10mm</span>
+                        </div>
+                    </button>
+                    <button type="button" class="demo-select-item" data-demo="PCOS_Case_004.png">
+                        <span class="demo-badge pcos">PCOS</span>
+                        <div class="demo-info">
+                            <strong>PCOS Morphology Case 004</strong>
+                            <span>Subcapsular string of pearls</span>
+                        </div>
+                    </button>
+                    <button type="button" class="demo-select-item" data-demo="Normal_Case_002.png">
+                        <span class="demo-badge normal">NORMAL</span>
+                        <div class="demo-info">
+                            <strong>Normal Ovary Case 002</strong>
+                            <span>Physiological follicle reserve</span>
+                        </div>
+                    </button>
+                    <button type="button" class="demo-select-item" data-demo="DF_Case_024.png">
+                        <span class="demo-badge df">DF</span>
+                        <div class="demo-info">
+                            <strong>Dominant Follicle Case 024</strong>
+                            <span>Pre-ovulatory follicle</span>
+                        </div>
+                    </button>
+                    <button type="button" class="demo-select-item" data-demo="PCOS_Case_023.png">
+                        <span class="demo-badge pcos">PCOS</span>
+                        <div class="demo-info">
+                            <strong>PCOS Morphology Case 023</strong>
+                            <span>Dense stroma, polyfollicular</span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+            <button type="button" class="pacs-hdr-btn" id="btnCriteria">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                <span>Rotterdam Guide</span>
+            </button>
+            <button type="button" class="pacs-hdr-btn" id="btnHistory">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                <span>History</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hidden native file input -->
+    <input type="file" id="fileInput" accept="image/jpeg,image/png,image/jpg,image/webp" class="file-input-hidden">
+
+    <!-- ==================== MAIN WORKSTATION WORKSPACE ==================== -->
+    <main class="workstation-workspace">
+
+        <!-- ================= LEFT STAGE: MEDICAL PACS VIEWER ================= -->
+        <section class="pacs-viewport-stage">
+
+            <!-- Stage Control Toolbar -->
+            <div class="stage-control-bar">
+                <div class="stage-mode-tabs" id="explanationModeBar">
+                    <button type="button" class="mode-tab-btn active" data-mode="standard">
+                        <span class="mode-dot dot-thermal"></span>
+                        <span>LayerCAM Thermal</span>
+                    </button>
+                    <button type="button" class="mode-tab-btn" data-mode="roi_focus">
+                        <span class="mode-dot dot-caliper"></span>
+                        <span>Follicle Calipers & Bounds</span>
+                    </button>
+                    <button type="button" class="mode-tab-btn" data-mode="radiology_hotspot">
+                        <span class="mode-dot dot-concordance"></span>
+                        <span>AI Concordance</span>
+                    </button>
+                    <button type="button" class="mode-tab-btn" data-mode="tri_panel">
+                        <span class="mode-dot dot-tri"></span>
+                        <span>Tri-Panel Inspection</span>
+                    </button>
+                    <button type="button" class="mode-tab-btn" data-mode="edge_guided">
+                        <span class="mode-dot dot-edge"></span>
+                        <span>Edge Saliency</span>
+                    </button>
+                </div>
+
+                <div class="stage-actions-group">
+                    <button type="button" class="stage-action-btn" id="btnChangeActiveScan" title="Change Ultrasound Image">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+                        <span>Change Scan</span>
+                    </button>
+                    <a href="#" class="stage-action-btn export" id="btnDownloadGradcam" download="ultrasound_pacs_analysis.png" title="Export High-Resolution Analysis">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        <span>Export</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Main High-Definition Ultrasound Viewport -->
+            <div class="pacs-viewport-screen" id="gradcamViewport">
+
+                <!-- 1. EMPTY STATE: CLEAN HERO SCAN INGESTION DROPZONE -->
+                <div class="viewport-empty-hero" id="resultStateEmpty">
+                    <div class="sonar-transducer-graphic">
+                        <div class="sonar-pulse-ring r1"></div>
+                        <div class="sonar-pulse-ring r2"></div>
+                        <div class="sonar-core-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="1.8">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <h2 class="hero-prompt-title">Awaiting Ovarian Ultrasound Scan</h2>
+                    <p class="hero-prompt-subtitle">Drop your B-mode ultrasound DICOM/PNG/JPG scan here or click to browse from clinical workstation storage.</p>
+
+                    <div class="hero-drop-action-box" id="heroDropzone">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="17 8 12 3 7 8"></polyline>
+                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                        </svg>
+                        <span class="hero-drop-label">Select or Drop Ultrasound Scan File</span>
+                        <span class="hero-drop-format">Supports Transvaginal & Transabdominal B-Mode (JPG / PNG)</span>
+                    </div>
+
+                    <!-- Instant Clinical Test Samples Quick Bar -->
+                    <div class="hero-quick-samples-bar">
+                        <span class="quick-samples-title">Or test instantly with clinical samples:</span>
+                        <div class="quick-samples-buttons">
+                            <button type="button" class="sample-pill-btn df" data-demo="DF_Case_007.png">
+                                <span class="pill-dot"></span>
+                                <span>Dominant Follicle (DF)</span>
+                            </button>
+                            <button type="button" class="sample-pill-btn pcos" data-demo="PCOS_Case_004.png">
+                                <span class="pill-dot"></span>
+                                <span>PCOS Morphology</span>
+                            </button>
+                            <button type="button" class="sample-pill-btn normal" data-demo="Normal_Case_002.png">
+                                <span class="pill-dot"></span>
+                                <span>Normal Ovary</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. ANALYZING SCANNER OVERLAY -->
+                <div class="viewport-analyzing-overlay hidden" id="resultStateAnalyzing">
+                    <div class="laser-scanner-line"></div>
+                    <div class="sonar-pulse-core">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+                    </div>
+                    <span class="analyzing-status-text" id="analyzingStepText">Acquiring acoustic ultrasound matrix...</span>
+                    <div class="analyzing-progress-container">
+                        <div class="analyzing-progress-bar" id="scanProgressFill"></div>
+                    </div>
+                </div>
+
+                <!-- 3. ACOUSTIC VALIDATION GATE WARNING -->
+                <div class="viewport-gate-warning hidden" id="resultStateUnsupported">
+                    <div class="gate-warning-card">
+                        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                        <h3 class="gate-warning-title">Ultrasound Acoustic Validation Failed</h3>
+                        <p class="gate-warning-desc" id="unsupportedMessageText">The uploaded image does not match the expected grayscale acoustic characteristics of an ovarian ultrasound scan.</p>
+                        <span class="gate-warning-footer">Inference halted to safeguard clinical decision-making.</span>
+                        <button type="button" class="pacs-hdr-btn primary" id="btnRetryGate">Select Valid Ultrasound</button>
+                    </div>
+                </div>
+
+                <!-- 4. ACTIVE DIAGNOSTIC VIEWPORT CANVAS -->
+                <div class="viewport-canvas-container hidden" id="resultStateActive">
+                    <img id="gradcamImg" src="" alt="Active Ultrasound Diagnostic View">
+
+                    <!-- Anatomical Callout Pills -->
+                    <div class="canvas-callout-overlay" id="gradcamAnnotations">
+                        <span class="callout-pill top-left" id="annoRegion">Parenchymal Acoustic Focus</span>
+                        <span class="callout-pill bottom-right" id="annoSalience">Peak Salience: 0.98</span>
+                    </div>
+
+                    <!-- Calibrated Thermal Colorbar -->
+                    <div class="canvas-thermal-colorbar" id="colorbarContainer">
+                        <span class="colorbar-label high">Max<br>Attribution</span>
+                        <div class="colorbar-gradient-strip"></div>
+                        <span class="colorbar-label low">Baseline<br>Tissue</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Viewport Bottom Clinical HUD Bar -->
+            <div class="viewport-hud-strip">
+                <div class="hud-strip-left">
+                    <span class="hud-metric-pill" id="hudAttentionText">Status: <strong>Ready for Scan Ingestion</strong></span>
+                </div>
+                <div class="hud-strip-right">
+                    <span class="hud-metric-tag" id="hudModelTag">Model: <strong>ConvNeXt-Tiny V6</strong></span>
+                    <span class="hud-metric-tag" id="hudScanId">Scan ID: <strong>--</strong></span>
+                </div>
+            </div>
+
+            <!-- Measured Follicle Calipers & Anatomical Inventory Table -->
+            <div class="docked-caliper-table-card hidden" id="follicleInventoryCard">
+                <div class="caliper-table-header">
+                    <div class="table-hdr-title-group">
+                        <strong class="caliper-table-title">Measured Follicle Calipers & Anatomical Inventory</strong>
+                        <span class="caliper-count-badge" id="follicleInventoryCount">0 Follicles Measured</span>
+                    </div>
+                    <div class="caliper-legend-group">
+                        <span class="legend-badge amber">Dominant Follicle &ge;10mm</span>
+                        <span class="legend-badge cyan">Antral Follicle 2-9mm</span>
+                    </div>
+                </div>
+
+                <div class="caliper-table-scroll-wrap">
+                    <table class="medical-caliper-table" id="follicleTable">
+                        <thead>
+                            <tr>
+                                <th># ID</th>
+                                <th>Caliper Diam (mm)</th>
+                                <th>Classification</th>
+                                <th>Coordinates [X, Y, W, H]</th>
+                                <th>Spatial Distribution</th>
+                                <th>LayerCAM Focus</th>
+                            </tr>
+                        </thead>
+                        <tbody id="follicleTableBody">
+                            <!-- Populated dynamically via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ================= RIGHT COLUMN: DIAGNOSTIC REPORT & ROTTERDAM BIOMARKERS ================= -->
+        <aside class="pacs-report-stage">
+
+            <!-- Primary Clinical Diagnostic Verdict Card -->
+            <div class="diagnostic-verdict-card" id="predictionBanner">
+                <div class="verdict-card-status-row">
+                    <span class="verdict-condition-badge" id="verdictPill">Awaiting Scan</span>
+                    <span class="verdict-certainty-badge" id="confidencePill">--</span>
+                </div>
+                <h2 class="verdict-headline" id="verdictHeadline">Awaiting Diagnostic Input</h2>
+                <p class="verdict-description" id="verdictDescription">Upload an ovarian ultrasound scan or select a clinical test sample to initiate dual-model analysis & follicle bounding.</p>
+            </div>
+
+            <!-- 3-Class Softmax Posterior Probability Meters -->
+            <div class="report-box-card">
+                <div class="report-box-header">
+                    <strong class="report-box-title">3-Class Posterior Probability Distribution</strong>
+                    <span class="report-box-subtitle">Calibrated Softmax Output</span>
+                </div>
+
+                <div class="prob-meters-stack">
+                    <!-- Dominant Follicle (DF) -->
+                    <div class="prob-card-item" id="probRowDf">
+                        <div class="prob-card-hdr">
+                            <div class="prob-title-badge">
+                                <span class="prob-dot dot-df"></span>
+                                <strong class="prob-label">Dominant Follicle (DF)</strong>
+                            </div>
+                            <span class="prob-percentage" id="probValDf">0.0%</span>
+                        </div>
+                        <div class="meter-track">
+                            <div class="meter-bar fill-df" id="probBarDf" style="width: 0%;"></div>
+                        </div>
+                        <span class="prob-subtext">Pre-ovulatory follicle &ge;10mm (normal menstrual cycle)</span>
+                    </div>
+
+                    <!-- PCOS Morphology -->
+                    <div class="prob-card-item" id="probRowPcos">
+                        <div class="prob-card-hdr">
+                            <div class="prob-title-badge">
+                                <span class="prob-dot dot-pcos"></span>
+                                <strong class="prob-label">PCOS Morphology</strong>
+                            </div>
+                            <span class="prob-percentage" id="probValPcos">0.0%</span>
+                        </div>
+                        <div class="meter-track">
+                            <div class="meter-bar fill-pcos" id="probBarPcos" style="width: 0%;"></div>
+                        </div>
+                        <span class="prob-subtext">&ge;12 peripheral follicles in 'string of pearls' distribution</span>
+                    </div>
+
+                    <!-- Normal Ovary -->
+                    <div class="prob-card-item" id="probRowNormal">
+                        <div class="prob-card-hdr">
+                            <div class="prob-title-badge">
+                                <span class="prob-dot dot-normal"></span>
+                                <strong class="prob-label">Normal Ovary</strong>
+                            </div>
+                            <span class="prob-percentage" id="probValNormal">0.0%</span>
+                        </div>
+                        <div class="meter-track">
+                            <div class="meter-bar fill-normal" id="probBarNormal" style="width: 0%;"></div>
+                        </div>
+                        <span class="prob-subtext">Physiological resting reserve without polyfollicular expansion</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rotterdam Biomarkers & Quantitative Morphometry -->
+            <div class="report-box-card">
+                <div class="report-box-header">
+                    <strong class="report-box-title">Rotterdam Biomarkers & Morphometry</strong>
+                    <span class="report-box-subtitle">Acoustic Quantitative Metrics</span>
+                </div>
+
+                <div class="biomarkers-2x2-grid">
+                    <!-- AFC -->
+                    <div class="biomarker-cell">
+                        <span class="bm-label">Antral Follicle Count</span>
+                        <div class="bm-main-row">
+                            <strong class="bm-val" id="metricAfc">--</strong>
+                            <span class="bm-badge" id="metricRotterdamBadge">--</span>
+                        </div>
+                        <span class="bm-subtext" id="metricAfcSub">Rotterdam threshold: &ge;12</span>
+                    </div>
+
+                    <!-- Dominant Follicle -->
+                    <div class="biomarker-cell highlight-df">
+                        <span class="bm-label">Dominant Follicles (&ge;10mm)</span>
+                        <div class="bm-main-row">
+                            <strong class="bm-val amber" id="metricDominantCount">--</strong>
+                            <span class="bm-badge amber" id="metricDominantBadge">--</span>
+                        </div>
+                        <span class="bm-subtext" id="metricDominantSub">Pre-ovulatory leading follicle</span>
+                    </div>
+
+                    <!-- Follicle Diameters -->
+                    <div class="biomarker-cell">
+                        <span class="bm-label">Mean Follicle Diameter</span>
+                        <div class="bm-main-row">
+                            <strong class="bm-val" id="metricMeanDiameter">-- mm</strong>
+                        </div>
+                        <span class="bm-subtext" id="metricDiameterRange">Range: -- mm</span>
+                    </div>
+
+                    <!-- Spatial Distribution & Concordance -->
+                    <div class="biomarker-cell">
+                        <span class="bm-label">Spatial Distribution</span>
+                        <div class="bm-main-row">
+                            <strong class="bm-val" id="metricPattern">--</strong>
+                        </div>
+                        <span class="bm-subtext" id="metricAiConcordance">AI Concordance: --%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Operating Specs & Clinical Metadata -->
+            <div class="specs-summary-card">
+                <div class="spec-row"><span>Active Architecture</span><strong id="specModel">ConvNeXt-Tiny V6</strong></div>
+                <div class="spec-row"><span>Test Benchmark</span><strong id="specBenchmark">84.9% Acc &bull; 0.8506 F1</strong></div>
+                <div class="spec-row"><span>Calibrated Threshold</span><strong id="specThreshold">0.50 (Calibrated)</strong></div>
+                <div class="spec-row"><span>Evaluation Date</span><strong id="specDate">--</strong></div>
+                <div class="spec-privacy-note">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    <span>Local Workstation Execution &bull; Zero External Transmission</span>
+                </div>
+            </div>
+
+        </aside>
+
+    </main>
+
+    <!-- ==================== MODALS ==================== -->
+
+    <!-- 1. Diagnostic History Modal -->
+    <div class="pacs-modal-backdrop hidden" id="modalHistory">
+        <div class="pacs-modal-window">
+            <div class="modal-hdr">
+                <h3 class="modal-hdr-title">Session Diagnostic History</h3>
+                <button class="btn-modal-close" id="btnCloseHistory">&times;</button>
+            </div>
+            <div class="modal-bdy" id="historyListContainer">
+                <p class="history-empty">No clinical analyses recorded in this session yet.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Rotterdam Criteria Guide Modal -->
+    <div class="pacs-modal-backdrop hidden" id="modalHowItWorks">
+        <div class="pacs-modal-window">
+            <div class="modal-hdr">
+                <h3 class="modal-hdr-title">Clinical Criteria & Rotterdam Consensus Guide</h3>
+                <button class="btn-modal-close" id="btnCloseHowItWorks">&times;</button>
+            </div>
+            <div class="modal-bdy doc-body">
+                <h4>1. Dominant Follicle (DF) Condition</h4>
+                <p>During the normal follicular phase, a single leading Graafian follicle expands beyond <strong>10 mm</strong> in diameter (typically reaching 18–25 mm prior to ovulation). OvaScan AI recognizes dominant follicle expansion, preventing normal ovulating patients from receiving false-positive PCOS flags.</p>
+
+                <h4>2. Polycystic Ovary Syndrome (PCOS) Criteria</h4>
+                <p>According to the international Rotterdam ESHRE/ASRM consensus, polycystic ovarian morphology is defined by <strong>&ge; 12 follicles</strong> measuring 2–9 mm per ovary, characteristically arranged in a peripheral subcapsular "string of pearls" ring around dense central stroma.</p>
+
+                <h4>3. Normal Ovarian Architecture</h4>
+                <p>Physiological resting ovaries exhibit balanced follicular reserves (&lt; 12 antral follicles) without peripheral subcapsular clustering or pre-ovulatory dominant follicle expansion.</p>
+
+                <h4>4. Top-2 Production Models Specification</h4>
+                <div class="doc-specs-table">
+                    <div class="doc-spec-row"><span>Top-1 Champion</span><strong>ConvNeXt-Tiny V6 (84.9% Acc, 0.8506 F1, 100% PCOS Recall)</strong></div>
+                    <div class="doc-spec-row"><span>Top-2 Benchmark</span><strong>ResNet-50 (81.4% Acc, 96.6% DF Recall, 100% PCOS Precision)</strong></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/app.js?v=6.0"></script>
+</body>
+</html>
