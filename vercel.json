@@ -1,18 +1,16 @@
 {
   "version": 2,
-  "builds": [
+  "rewrites": [
     {
-      "src": "app.py",
-      "use": "@vercel/python",
-      "config": {
-        "maxDuration": 60
-      }
+      "source": "/(.*)",
+      "destination": "/api/index.py"
     }
   ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "app.py"
+  "functions": {
+    "api/index.py": {
+      "maxDuration": 60,
+      "memory": 1024,
+      "excludeFiles": "{real_time_data.enc,real time data/**,models/ResNet50/**,results/**,docs/**,scratch/**,test*/**,*.docx,*.md}"
     }
-  ]
+  }
 }
