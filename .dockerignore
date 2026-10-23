@@ -1,0 +1,16 @@
+.git
+.github
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.venv
+env
+venv
+real_time_data.enc
+real time data
+scratch
+docs
+*.docx
+*.md
+!README.md
