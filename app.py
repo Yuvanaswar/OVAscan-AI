@@ -37,9 +37,16 @@ from src.explainability import V6ExplainabilityEngine, generate_all_explanations
 BASE_DIR = Path(__file__).resolve().parent
 MODELS_DIR = BASE_DIR / "models"
 STATIC_DIR = BASE_DIR / "static"
-GRADCAM_OUT_DIR = STATIC_DIR / "gradcam_output"
-UPLOADS_DIR = BASE_DIR / "uploads"
 REAL_DATA_DIR = BASE_DIR / "real time data"
+
+IS_VERCEL = bool(os.environ.get("VERCEL") or os.environ.get("AWS_LAMBDA_FUNCTION_NAME"))
+if IS_VERCEL:
+    TMP_DIR = Path("/tmp")
+    GRADCAM_OUT_DIR = TMP_DIR / "gradcam_output"
+    UPLOADS_DIR = TMP_DIR / "uploads"
+else:
+    GRADCAM_OUT_DIR = STATIC_DIR / "gradcam_output"
+    UPLOADS_DIR = BASE_DIR / "uploads"
 
 GRADCAM_OUT_DIR.mkdir(parents=True, exist_ok=True)
 UPLOADS_DIR.mkdir(parents=True, exist_ok=True)
@@ -48,6 +55,12 @@ DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 app = Flask(__name__, template_folder=str(BASE_DIR / "templates"), static_folder=str(STATIC_DIR))
 CORS(app)
+
+if IS_VERCEL:
+    @app.route("/static/gradcam_output/<path:filename>")
+    def serve_gradcam_tmp(filename):
+        return send_from_directory(str(GRADCAM_OUT_DIR), filename)
+
 
 # 3-Class Definition
 CLASS_NAMES = ["Normal Ovary", "PCOS", "Dominant Follicle"]
