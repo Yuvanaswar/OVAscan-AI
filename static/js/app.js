@@ -334,7 +334,9 @@ document.addEventListener("DOMContentLoaded", () => {
         verdictPill.textContent = data.prediction;
         confidencePill.textContent = `${data.confidence} Certainty (${data.top_probability}%)`;
 
-        if (data.prediction === "Dominant Follicle") {
+        if (data.status_code === "ovary_absent" || (data.prediction && data.prediction.includes("Ovary Not in View"))) {
+            verdictHeadline.textContent = "Ovary Not in View (Rescan Required)";
+        } else if (data.prediction === "Dominant Follicle") {
             verdictHeadline.textContent = "Dominant Follicle (DF) Detected";
         } else if (data.prediction === "PCOS") {
             verdictHeadline.textContent = "PCOS-Associated Morphology";

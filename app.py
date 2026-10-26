@@ -257,6 +257,16 @@ def predict():
 
     conf_level = "High" if top_prob >= 0.70 else ("Moderate" if top_prob >= 0.50 else "Borderline Decision")
 
+    # View Quality Check: If no ovary in frame (e.g. transabdominal bladder/wall view)
+    if attention_metrics.get("ovary_in_view") is False:
+        prediction_label = "Ovary Not in View (Rescan Required)"
+        status_code = "ovary_absent"
+        status_color = "#64748b"
+        prediction_summary = attention_metrics.get(
+            "view_warning",
+            "Ovary not in view, rescan. The prominent fluid cavity is the urinary bladder, and surrounding hypoechoic bands represent abdominal wall muscle/fascia."
+        )
+
     return jsonify({
         "is_valid_input": True,
         "analysis_id": analysis_id,

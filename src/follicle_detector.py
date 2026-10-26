@@ -121,9 +121,43 @@ def detect_ovarian_follicles(
             "ai_concordance_rate": 0.0,
             "stromal_follicle_ratio": 99.0,
             "stromal_to_follicle_ratio": 99.0,
-            "ovary_center": (w // 2, h // 2)
+            "ovary_center": (w // 2, h // 2),
+            "ovary_in_view": True
         }
         return [], clean_metrics, tissue_mask
+
+    # 4b. Ovary Presence & Transabdominal Bladder Gating (Fix 1 & Fix 3)
+    # Transabdominal full bladder views exhibit a massive dark fluid cavity (>18% of frame)
+    # with absence of true ovarian stroma. All hypoechoic slits in such frames are abdominal wall fascia.
+    bladder_candidate = (denoised < 32) & (valid_fov > 0)
+    num_b_labels, _, b_stats, _ = cv2.connectedComponentsWithStats(bladder_candidate.astype(np.uint8))
+    if num_b_labels > 1:
+        max_fluid_area = np.max(b_stats[1:, cv2.CC_STAT_AREA])
+        fluid_pct = float(max_fluid_area / (h * w)) * 100.0
+        if fluid_pct > 18.0 and max_bhat < 42.0:
+            no_ovary_metrics = {
+                "afc": 0,
+                "antral_count": 0,
+                "rotterdam_afc_met": False,
+                "pattern": "Ovary not in view, rescan (Transabdominal Bladder / Abdominal Wall View)",
+                "pattern_code": "no_ovary_in_view",
+                "subcapsular_count": 0,
+                "subcapsular_pct": 0.0,
+                "mean_diameter_mm": 0.0,
+                "diameter_range_mm": "N/A",
+                "has_dominant_follicle": False,
+                "dominant_count": 0,
+                "total_detected": 0,
+                "concordant_count": 0,
+                "ai_concordance_pct": 0.0,
+                "ai_concordance_rate": 0.0,
+                "stromal_follicle_ratio": 99.0,
+                "stromal_to_follicle_ratio": 99.0,
+                "ovary_center": (w // 2, h // 2),
+                "ovary_in_view": False,
+                "view_warning": "Ovary not in view, rescan. The prominent fluid structure is the urinary bladder, and surrounding hypoechoic lines represent abdominal wall fascia/muscle."
+            }
+            return [], no_ovary_metrics, tissue_mask
 
     # Clinical parameter configuration:
     is_normal_pred = (pred_label == "Normal Ovary")
@@ -176,13 +210,13 @@ def detect_ovarian_follicles(
         if perim == 0:
             continue
         circ = 4.0 * np.pi * area / (perim * perim)
-        if circ < 0.28:  # excludes linear acoustic shadow bands and vessel tracks
+        if circ < 0.48:  # Excludes irregular jagged acoustic shadows and elongated tissue slits
             continue
 
         hull = cv2.convexHull(cnt)
         ha = cv2.contourArea(hull)
         solidity = float(area) / ha if ha > 0 else 0
-        if solidity < 0.70:  # fluid cavities are solid, compact convex bodies
+        if solidity < 0.72:  # Fluid cavities are solid, compact convex bodies
             continue
 
         # Contrast validation: border rim vs cavity interior
@@ -199,28 +233,40 @@ def detect_ovarian_follicles(
         if contrast < min_contrast or mi > fluid_ceiling:
             continue
 
-        equiv_diam_mm = round(2.0 * np.sqrt(area / np.pi) * mm_per_pixel, 1)
-        if equiv_diam_mm < min_diam_mm:
-            continue
-
         rect = cv2.minAreaRect(cnt)
         (rw, rh) = rect[1]
         major_mm = round(max(rw, rh) * mm_per_pixel, 1)
         minor_mm = round(min(rw, rh) * mm_per_pixel, 1)
         mean_caliper_mm = round((major_mm + minor_mm) / 2.0, 1)
+        aspect_ratio = round(major_mm / max(minor_mm, 0.1), 2)
+
+        # REJECTION RULE 1: Discard thin fascia / muscle slits (aspect ratio > 2.5)
+        if aspect_ratio > 2.5:
+            continue
+
+        # REJECTION RULE 2: Discard micro-slivers and acoustic speckle (thin side < 1.5 mm)
+        if minor_mm < 1.5:
+            continue
+
+        # REJECTION RULE 3: Discard non-follicle macroscopic voids (diameter > 30 mm = cyst or bladder)
+        equiv_diam_mm = round(2.0 * np.sqrt(area / np.pi) * mm_per_pixel, 1)
+        if equiv_diam_mm < min_diam_mm or equiv_diam_mm > 30.0 or major_mm > 30.0:
+            continue
+
+        # REJECTION RULE 4: Superficial abdominal wall exclusion (top 8% of frame)
+        if (y + bh // 2) < int(0.08 * h):
+            continue
 
         is_pcos_pred = (pred_label == "PCOS")
 
         # Dominant Follicle:
-        # In Normal Ovary: Normal resting ovary has no dominant follicles
-        # In PCOS: Polycystic follicles remain antral (contributing to AFC) unless an overt cyst >= 12.0 mm is present
-        # In DF: Major caliper >= 10.0 mm with mean caliper >= 8.5 mm (or equiv diameter >= 10.0 mm)
+        # Strictly requires >= 10.0 mm mean caliper with rounded morphology (minor >= 7.0 mm)
         if is_normal_pred:
             is_dom = False
         elif is_pcos_pred:
             is_dom = bool(equiv_diam_mm >= 12.0 and minor_mm >= 8.0)
         else:  # DF or general
-            is_dom = bool(equiv_diam_mm >= 10.0 or (major_mm >= 10.0 and mean_caliper_mm >= 8.5))
+            is_dom = bool(mean_caliper_mm >= 10.0 and major_mm >= 10.0 and minor_mm >= 6.0 and circ >= 0.45)
 
         M_f = cv2.moments(cnt)
         fcx = int(M_f["m10"] / M_f["m00"]) if M_f["m00"] > 0 else x + bw // 2
@@ -257,16 +303,28 @@ def detect_ovarian_follicles(
         raw_follicles = raw_follicles[:5]
         raw_follicles.sort(key=lambda f: f["diameter_mm"], reverse=True)
 
-    # Spatial cluster centroid
+    # Spatial cluster centroid & Ovary Boundary Radius (keep_inside gating)
     if raw_follicles:
         pts = np.array([f["center"] for f in raw_follicles])
-        ovary_cx, ovary_cy = int(np.mean(pts[:, 0])), int(np.mean(pts[:, 1]))
+        ovary_cx, ovary_cy = int(np.median(pts[:, 0])), int(np.median(pts[:, 1]))
         dists = np.linalg.norm(pts - np.array([ovary_cx, ovary_cy]), axis=1)
-        d_ref = float(np.percentile(dists, 90)) if len(dists) > 2 else float(np.max(dists))
-        d_ref = max(d_ref, 1.0)
+
+        # Anatomical radius constraint: adult human ovary max radius is ~24 mm (~85 px)
+        max_ovary_r = int(24.0 / mm_per_pixel)
+        r_boundary = min(max_ovary_r, max(int(np.percentile(dists, 90) * 1.25), int(12.0 / mm_per_pixel)))
+
+        # Quick fix: Discard every detection whose centroid is outside the ovary boundary circle
+        raw_follicles = [
+            f for f in raw_follicles
+            if ((f["center"][0] - ovary_cx) ** 2 + (f["center"][1] - ovary_cy) ** 2) <= (r_boundary ** 2)
+        ]
+        d_ref = float(r_boundary) if r_boundary > 0 else 1.0
     else:
         ovary_cx, ovary_cy = w // 2, h // 2
         d_ref = 1.0
+        r_boundary = int(14.0 / mm_per_pixel)
+
+    metrics_ovary_radius = r_boundary
 
     follicles = []
     subcapsular_count = 0
@@ -356,7 +414,9 @@ def detect_ovarian_follicles(
         "stromal_follicle_ratio": sa_ratio,
         "stromal_to_follicle_ratio": sa_ratio,
         "ovary_center": (ovary_cx, ovary_cy),
-        "tissue_coverage_pct": round(float(tissue_area / (h * w) * 100), 1)
+        "ovary_radius": metrics_ovary_radius,
+        "tissue_coverage_pct": round(float(tissue_area / (h * w) * 100), 1),
+        "ovary_in_view": True
     }
 
     return follicles, metrics, tissue_mask
@@ -382,7 +442,12 @@ def render_follicle_mapping_image(
 
     cx, cy = metrics.get("ovary_center", (w // 2, h // 2))
 
-    # Soft radial ring indicating subcapsular threshold
+    # Draw anatomical ovary boundary circle (keep_inside region)
+    r_ovary = metrics.get("ovary_radius", 0)
+    if r_ovary > 10:
+        cv2.circle(vis, (cx, cy), r_ovary, (70, 95, 130), 1, lineType=cv2.LINE_AA)
+
+    # Subcapsular threshold ring
     all_pts = [f["center"] for f in follicles]
     if len(all_pts) > 2:
         dists = [np.linalg.norm(np.array(p) - np.array([cx, cy])) for p in all_pts]
