@@ -37,9 +37,6 @@ def extract_filled_mask_from_marker(hsv: np.ndarray, lower_thresh: tuple, upper_
             # Inner contour = region inside the marker ring
             if hier[0][i][3] != -1:
                 cv2.drawContours(mask, [c], -1, 255, -1)
-            else:
-                # If marker stroke was solid/filled rather than hollow ring
-                cv2.drawContours(mask, [c], -1, 255, -1)
 
     return mask, ring
 
@@ -149,12 +146,75 @@ def batch_process(input_path: str, output_path: str, negative_keywords: list = N
     print(f"  - {output_path}/ovary_masks/")
 
 
+def split_by_patient(
+    dataset_dir: str,
+    train_ratio: float = 0.70,
+    val_ratio: float = 0.15,
+    test_ratio: float = 0.15,
+    seed: int = 42
+) -> Dict[str, List[str]]:
+    """
+    Partitions dataset by patient identifier (70/15/15 split).
+    Prevents image-level data leakage between training, validation, and testing.
+    """
+    import json
+    import random
+
+    d = Path(dataset_dir)
+    img_files = sorted(list((d / "images").glob("*.png")) + list((d / "images").glob("*.jpg")))
+    
+    # Group stems by patient ID (token before timestamp/frame or full stem)
+    patients: Dict[str, List[str]] = {}
+    for p in img_files:
+        stem = p.stem
+        # Extract patient token
+        parts = stem.split("_")
+        patient_id = parts[0] if len(parts) > 1 and parts[0] in ["PCO", "NF", "DF", "patient"] else stem
+        if patient_id not in patients:
+            patients[patient_id] = []
+        patients[patient_id].append(stem)
+
+    unique_patients = sorted(list(patients.keys()))
+    random.seed(seed)
+    random.shuffle(unique_patients)
+
+    n_total = len(unique_patients)
+    n_train = max(1, int(round(n_total * train_ratio)))
+    n_val = max(1, int(round(n_total * val_ratio))) if n_total >= 3 else 0
+
+    train_pts = unique_patients[:n_train]
+    val_pts = unique_patients[n_train : n_train + n_val]
+    test_pts = unique_patients[n_train + n_val :] if (n_train + n_val) < n_total else val_pts
+
+    splits = {
+        "train": [s for pid in train_pts for s in patients[pid]],
+        "val": [s for pid in val_pts for s in patients[pid]],
+        "test": [s for pid in test_pts for s in patients[pid]]
+    }
+
+    out_file = d / "splits.json"
+    with open(out_file, "w") as f:
+        json.dump(splits, f, indent=2)
+
+    print(f"[SPLIT] Partitioned {len(img_files)} images across {n_total} patient(s):")
+    print(f"  - Train: {len(splits['train'])} images ({len(train_pts)} patients)")
+    print(f"  - Val:   {len(splits['val'])} images ({len(val_pts)} patients)")
+    print(f"  - Test:  {len(splits['test'])} images ({len(test_pts)} patients)")
+    print(f"  - Saved to: {out_file}")
+    return splits
+
+
 if __name__ == "__main__":
-    from typing import Tuple
+    from typing import Tuple, Dict, List
     parser = argparse.ArgumentParser(description="Convert hand-drawn green/yellow annotations to 2-stage binary masks.")
-    parser.add_argument("--input", "-i", type=str, required=True, help="Path to input image or directory")
+    parser.add_argument("--input", "-i", type=str, default="", help="Path to input image or directory")
     parser.add_argument("--output", "-o", type=str, default="data/segmentation_dataset", help="Output directory")
     parser.add_argument("--negative", action="store_true", help="Force treat inputs as negative (no ovary) scans")
+    parser.add_argument("--split", action="store_true", help="Run 70/15/15 patient-level split")
     args = parser.parse_args()
 
-    batch_process(args.input, args.output, force_negative=args.negative)
+    if args.input:
+        batch_process(args.input, args.output, force_negative=args.negative)
+
+    if args.split or not args.input:
+        split_by_patient(args.output, 0.70, 0.15, 0.15)

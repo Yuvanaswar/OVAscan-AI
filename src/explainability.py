@@ -179,10 +179,16 @@ def generate_all_explanations(pil_image: Image.Image, layercam_raw: np.ndarray, 
     layercam_native = cv2.resize(layercam_raw, (orig_w, orig_h), interpolation=cv2.INTER_LINEAR)
     layercam_native = np.clip(layercam_native, 0, 1)
 
-    layercam, tissue_mask = apply_acoustic_sector_gating(layercam_native, native_norm)
+    # 3. Authentic Follicle Detection, Segmentation, and Bounding Box Extraction at Native Resolution
+    follicles, f_metrics, ovary_mask = detect_ovarian_follicles(native_rgb, mm_per_pixel=0.28, layercam_map=layercam, pred_label=pred_label)
+
+    # TASK 6: LayerCAM is strictly masked to the Stage 1 segmented ovary ROI
+    if ovary_mask is not None and np.sum(ovary_mask > 0) > 0:
+        layercam = layercam * (ovary_mask > 0).astype(np.float32)
+
     cam_uint8 = np.uint8(255 * layercam)
 
-    # 1. Thermal Overlay (LayerCAM over native ultrasound)
+    # 1. Thermal Overlay (LayerCAM strictly masked to ovary ROI over native ultrasound)
     heat_jet = cv2.applyColorMap(cam_uint8, cv2.COLORMAP_JET)
     heat_jet = cv2.cvtColor(heat_jet, cv2.COLOR_BGR2RGB) / 255.0
     overlay_standard = np.clip(0.60 * native_norm + 0.40 * heat_jet, 0, 1)
@@ -190,16 +196,30 @@ def generate_all_explanations(pil_image: Image.Image, layercam_raw: np.ndarray, 
     # 2. Pure Heatmap (LayerCAM alone)
     heatmap_pure = heat_jet
 
-    # 3. Authentic Follicle Detection, Segmentation, and Bounding Box Extraction at Native Resolution
-    follicles, f_metrics, _ = detect_ovarian_follicles(native_rgb, mm_per_pixel=0.28, layercam_map=layercam, pred_label=pred_label)
     follicle_map_uint8 = render_follicle_mapping_image(native_rgb, follicles, f_metrics)
     follicle_map_norm = follicle_map_uint8 / 255.0
 
-    # 4. Edge Guided (LayerCAM + image structural acoustic edges)
+    # 4. Edge Guided (LayerCAM + image structural acoustic edges - defaults to OFF in UI)
     gray = cv2.cvtColor(native_rgb, cv2.COLOR_RGB2GRAY)
     edges = cv2.Canny(gray, 40, 110)
     edge_rgb = np.stack([edges] * 3, axis=-1) / 255.0
     edge_guided = np.clip(0.65 * heat_jet + 0.35 * edge_rgb, 0, 1)
+
+    # TASK 6: Concordance = IoU of (LayerCAM > 0.5) with the follicle mask; flag any hotspot outside the ovary ROI
+    raw_analysis = f_metrics.get("raw_analysis", {})
+    f_mask = raw_analysis.get("follicle_mask", np.zeros((orig_h, orig_w), dtype=np.uint8))
+    hotspot_bin = (layercam > 0.50).astype(np.uint8)
+    follicle_bin = (f_mask > 0).astype(np.uint8)
+    
+    inter = np.sum((hotspot_bin == 1) & (follicle_bin == 1))
+    union = np.sum((hotspot_bin == 1) | (follicle_bin == 1))
+    concordance_iou = float(inter / union) if union > 0 else 0.0
+    f_metrics["ai_concordance_pct"] = round(concordance_iou * 100.0, 1)
+
+    outside_hotspots = np.sum((layercam_native > 0.50) & (ovary_mask == 0))
+    f_metrics["has_hotspot_outside_ovary"] = bool(outside_hotspots > 100)
+    if f_metrics["has_hotspot_outside_ovary"]:
+        f_metrics["hotspot_warning"] = "Warning: LayerCAM attention detected outside ovarian boundary."
 
     # 5. AI & Follicle Concordance View (shows which follicles the CNN directly activated on)
     concordance_uint8 = render_ai_concordance_image(native_rgb, follicles, layercam, f_metrics)
