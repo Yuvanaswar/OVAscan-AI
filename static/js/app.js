@@ -407,17 +407,37 @@ document.addEventListener("DOMContentLoaded", () => {
 
             inventory.forEach(f => {
                 const tr = document.createElement("tr");
-                const isDom = f.diameter_mm >= 10.0;
-                const tagCls = isDom ? "dominant" : (f.is_subcapsular ? "subcapsular" : "central");
-                const tagText = isDom ? "Dominant (≥10mm)" : (f.is_subcapsular ? "Subcapsular Peripheral" : "Central Antral");
+                const isCyst = (f.diameter_mm > 30.0) || (f.category && f.category.toLowerCase().includes("cyst"));
+                const isDom = (f.diameter_mm >= 10.0 && !isCyst) || f.is_dominant;
+                const isPeriph = f.is_subcapsular || (f.r !== undefined && f.r > 0.6);
+
+                let tagCls = "central";
+                let tagText = "Antral (2-9mm)";
+                if (isCyst) {
+                    tagCls = "pcos";
+                    tagText = "Ovarian Cyst (>30mm)";
+                } else if (isDom) {
+                    tagCls = "dominant";
+                    tagText = "Dominant (≥10mm)";
+                } else if (isPeriph) {
+                    tagCls = "subcapsular";
+                    tagText = "Subcapsular (2-9mm)";
+                }
+
+                const d1 = f.D1 !== undefined ? f.D1 : (f.major_mm || f.diameter_mm);
+                const d2 = f.D2 !== undefined ? f.D2 : (f.minor_mm || f.diameter_mm);
+                const meanVal = f.mean !== undefined ? f.mean : f.diameter_mm;
+                const rVal = f.r !== undefined ? f.r.toFixed(2) : (f.radial_ratio !== undefined ? f.radial_ratio.toFixed(2) : "0.50");
                 const camScore = Math.round((f.cam_activation || 0) * 100);
 
                 tr.innerHTML = `
                     <td><strong class="foll-id-badge">#F${f.id}</strong></td>
-                    <td><span class="caliper-diam-val">${f.diameter_mm} mm</span></td>
+                    <td><span class="caliper-axes">${d1} &times; ${d2} mm</span></td>
+                    <td><span class="caliper-diam-val">${meanVal} mm</span></td>
                     <td><span class="caliper-tag ${tagCls}">${tagText}</span></td>
-                    <td><code>[${f.bbox.join(", ")}]</code></td>
-                    <td>${f.is_subcapsular ? "Peripheral Ring" : "Central Stroma"}</td>
+                    <td><code>r = ${rVal}</code></td>
+                    <td><span class="spatial-tag ${isPeriph ? 'peripheral' : 'central'}">${isPeriph ? "Peripheral (r > 0.6)" : "Central Stroma"}</span></td>
+                    <td><code>[${f.bbox ? f.bbox.join(", ") : "--"}]</code></td>
                     <td><span class="cam-score-val">${camScore}% Focus</span></td>
                 `;
                 follicleTableBody.appendChild(tr);

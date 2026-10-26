@@ -286,19 +286,29 @@ def generate_all_explanations(pil_image: Image.Image, layercam_raw: np.ndarray, 
     # Serialize follicle inventory for UI display (strip non-serializable contour)
     serializable_follicles = []
     for f in follicles:
+        d1_val = f.get("major_mm", f.get("D1", f["diameter_mm"]))
+        d2_val = f.get("minor_mm", f.get("D2", f["diameter_mm"]))
+        mean_val = f.get("diameter_mm", round((d1_val + d2_val) / 2.0, 1))
+        r_val = f.get("radial_ratio", f.get("r", 0.0))
+
         serializable_follicles.append({
             "id": f["id"],
             "bbox": f["bbox"],
             "center": f["center"],
-            "area_px": f["area_px"],
-            "diameter_mm": f["diameter_mm"],
-            "major_mm": f.get("major_mm", f["diameter_mm"]),
-            "minor_mm": f.get("minor_mm", f["diameter_mm"]),
-            "circularity": f["circularity"],
-            "mean_echogenicity": f["mean_echogenicity"],
-            "is_subcapsular": f["is_subcapsular"],
+            "area_px": f.get("area_px", 0),
+            "diameter_mm": mean_val,
+            "major_mm": d1_val,
+            "minor_mm": d2_val,
+            "D1": d1_val,
+            "D2": d2_val,
+            "mean_caliper_mm": mean_val,
+            "radial_ratio": r_val,
+            "r": r_val,
+            "circularity": f.get("circularity", 0.8),
+            "mean_echogenicity": f.get("mean_echogenicity", 30.0),
+            "is_subcapsular": f.get("is_subcapsular", False),
             "is_dominant": f.get("is_dominant", False),
-            "category": f["category"],
+            "category": f.get("category", "Antral Follicle (2-9mm)"),
             "ai_confirmed": f.get("ai_confirmed", False),
             "cam_activation": f.get("cam_activation", 0.0)
         })
@@ -313,12 +323,15 @@ def generate_all_explanations(pil_image: Image.Image, layercam_raw: np.ndarray, 
         "rotterdam_afc_met": f_metrics["rotterdam_afc_met"],
         "subcapsular_count": f_metrics["subcapsular_count"],
         "subcapsular_pct": f_metrics["subcapsular_pct"],
+        "peripheral_pct": f_metrics.get("peripheral_pct", f_metrics["subcapsular_pct"]),
+        "spatial_distribution": f_metrics.get("pattern", "Follicular Reserve"),
         "mean_diameter_mm": f_metrics["mean_diameter_mm"],
         "diameter_range_mm": f_metrics["diameter_range_mm"],
         "has_dominant_follicle": f_metrics["has_dominant_follicle"],
         "dominant_count": f_metrics["dominant_count"],
         "antral_count": f_metrics["antral_count"],
-        "stromal_follicle_ratio": f_metrics["stromal_follicle_ratio"],
+        "cyst_count": f_metrics.get("cyst_count", 0),
+        "stromal_follicle_ratio": f_metrics.get("stromal_follicle_ratio", 4.0),
         "ai_concordance_pct": f_metrics["ai_concordance_pct"],
         "salience_coverage_pct": round(salience_coverage, 1),
         "peak_salience_index": round(float(np.max(layercam)), 2),
@@ -327,6 +340,9 @@ def generate_all_explanations(pil_image: Image.Image, layercam_raw: np.ndarray, 
         "margin_from_threshold": f"{'+' if delta_threshold >= 0 else ''}{round(delta_threshold * 100, 1)}%",
         "certainty_level": certainty_level,
         "follicle_inventory": serializable_follicles,
+        "ovary_in_view": f_metrics.get("ovary_in_view", True),
+        "ovary_found": f_metrics.get("ovary_found", True),
+        "view_warning": f_metrics.get("view_warning", ""),
         "disclaimer": "Quantitative ultrasound follicle detection & LayerCAM explainability. Academic research screening tool."
     }
 

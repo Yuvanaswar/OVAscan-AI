@@ -930,6 +930,13 @@ body.workstation-body {
     color: #94a3b8;
 }
 
+.caliper-axes {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: #38bdf8;
+    font-weight: 700;
+}
+
 .caliper-tag {
     display: inline-block;
     padding: 2px 8px;
@@ -945,15 +952,41 @@ body.workstation-body {
 }
 
 .caliper-tag.subcapsular {
-    background: #881337;
-    color: #fecdd3;
-    border: 1px solid #f43f5e;
+    background: #064e3b;
+    color: #a7f3d0;
+    border: 1px solid #10b981;
 }
 
 .caliper-tag.central {
     background: #0c4a6e;
     color: #bae6fd;
     border: 1px solid #0284c7;
+}
+
+.caliper-tag.pcos {
+    background: #881337;
+    color: #fecdd3;
+    border: 1px solid #f43f5e;
+}
+
+.spatial-tag {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-size: 0.68rem;
+    font-weight: 700;
+}
+
+.spatial-tag.peripheral {
+    background: rgba(16, 185, 129, 0.15);
+    color: #34d399;
+    border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
+.spatial-tag.central {
+    background: rgba(56, 189, 248, 0.15);
+    color: #38bdf8;
+    border: 1px solid rgba(56, 189, 248, 0.4);
 }
 
 .cam-score-val {

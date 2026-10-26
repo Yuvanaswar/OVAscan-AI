@@ -258,7 +258,7 @@ def predict():
     conf_level = "High" if top_prob >= 0.70 else ("Moderate" if top_prob >= 0.50 else "Borderline Decision")
 
     # View Quality Check: If no ovary in frame (e.g. transabdominal bladder/wall view)
-    if attention_metrics.get("ovary_in_view") is False:
+    if attention_metrics.get("ovary_in_view") is False or attention_metrics.get("ovary_found") is False:
         prediction_label = "Ovary Not in View (Rescan Required)"
         status_code = "ovary_absent"
         status_color = "#64748b"
@@ -283,10 +283,14 @@ def predict():
             "mean_diameter_mm": attention_metrics.get("mean_diameter_mm", 0.0),
             "diameter_range_mm": attention_metrics.get("diameter_range_mm", "N/A"),
             "subcapsular_pct": attention_metrics.get("subcapsular_pct", 0.0),
+            "peripheral_pct": attention_metrics.get("peripheral_pct", 0.0),
+            "spatial_distribution": attention_metrics.get("spatial_distribution", "N/A"),
             "subcapsular_count": attention_metrics.get("subcapsular_count", 0),
             "has_dominant_follicle": attention_metrics.get("has_dominant_follicle", False),
             "dominant_count": attention_metrics.get("dominant_count", 0),
+            "cyst_count": attention_metrics.get("cyst_count", 0),
             "antral_count": attention_metrics.get("antral_count", 0),
+            "ovary_found": attention_metrics.get("ovary_found", True),
             "stromal_follicle_ratio": attention_metrics.get("stromal_follicle_ratio", 1.0),
             "ai_concordance_pct": attention_metrics.get("ai_concordance_pct", 0.0),
             "inventory": attention_metrics.get("follicle_inventory", [])
